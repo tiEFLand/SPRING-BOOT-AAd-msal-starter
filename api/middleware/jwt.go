@@ -17,4 +17,9 @@ type Token struct {
 	Expire   float64
 }
 
-func JwtMiddleware() *jwt.GinJWTMiddle
+func JwtMiddleware() *jwt.GinJWTMiddleware {
+	secretKey, _ := utils.GetConfig().Get("jwt.secret")
+
+	// the jwt middleware
+	middleware, err := jwt.New(&jwt.GinJWTMiddleware{
+		Realm:      "u
