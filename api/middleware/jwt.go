@@ -26,4 +26,8 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 		Key:        []byte(secretKey),
 		Timeout:    time.Hour,
 		MaxRefresh: time.Hour,
-		IdentityHandler: func(c *gin.Context) interface{}
+		IdentityHandler: func(c *gin.Context) interface{} {
+			claims := jwt.ExtractClaims(c)
+			return &Token{
+				UID:      claims["uid"].(string),
+				Username: claims["username"].(string
