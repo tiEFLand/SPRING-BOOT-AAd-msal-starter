@@ -22,4 +22,8 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 
 	// the jwt middleware
 	middleware, err := jwt.New(&jwt.GinJWTMiddleware{
-		Realm:      "u
+		Realm:      "user",
+		Key:        []byte(secretKey),
+		Timeout:    time.Hour,
+		MaxRefresh: time.Hour,
+		IdentityHandler: func(c *gin.Context) interface{}
