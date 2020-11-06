@@ -30,4 +30,9 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 			claims := jwt.ExtractClaims(c)
 			return &Token{
 				UID:      claims["uid"].(string),
-				Username: claims["username"].(string
+				Username: claims["username"].(string),
+				Expire:   claims["exp"].(float64),
+			}
+		},
+		Unauthorized: func(c *gin.Context, code int, message string) {
+			c.JSON(http.S
