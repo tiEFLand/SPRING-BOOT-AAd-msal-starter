@@ -46,4 +46,8 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 		// - "cookie:<name>"
 		// - "param:<name>"
 		TokenLookup: "header: Authorization",
-		//
+		// TokenLookup: "query:token",
+		// TokenLookup: "cookie:token",
+
+		// TokenHeadName is a string in the header. Default value is "Bearer"
+		TokenHeadNa
