@@ -37,4 +37,7 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: message, Payload: nil})
 		},
-		// TokenLookup is a string in the form of "<so
+		// TokenLookup is a string in the form of "<source>:<name>" that is used
+		// to extract token from the request.
+		// Optional. Default value "header:Authorization".
+		// Possib
