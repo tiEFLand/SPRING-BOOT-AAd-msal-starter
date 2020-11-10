@@ -50,4 +50,6 @@ func JwtMiddleware() *jwt.GinJWTMiddleware {
 		// TokenLookup: "cookie:token",
 
 		// TokenHeadName is a string in the header. Default value is "Bearer"
-		TokenHeadNa
+		TokenHeadName: "Bearer",
+
+		// TimeFunc provides the current time. You can override it to use another time value. This is useful for testing or if your server uses a different time z
