@@ -23,4 +23,6 @@ type User struct {
 	UID       string         `bson:"_id" json:"uid"`
 	Username  string         `bson:"username" json:"username"`
 	Password  string         `bson:"password" json:"password"` // hex
-	
+	Salt      string         `bson:"salt" json:"salt"`
+	OkexKey   OkexKeyDetail  `bson:"okex_key" json:"okex_key"`
+	HuobiKey  HuobiKeyDetail `bson:"huobi_key" json:"huobi_ke
