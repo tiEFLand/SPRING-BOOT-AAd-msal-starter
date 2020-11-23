@@ -25,4 +25,7 @@ type User struct {
 	Password  string         `bson:"password" json:"password"` // hex
 	Salt      string         `bson:"salt" json:"salt"`
 	OkexKey   OkexKeyDetail  `bson:"okex_key" json:"okex_key"`
-	HuobiKey  HuobiKeyDetail `bson:"huobi_key" json:"huobi_ke
+	HuobiKey  HuobiKeyDetail `bson:"huobi_key" json:"huobi_key"`
+	PushUID   int64          `bson:"push_uid" json:"push_uid"`
+	Status    string         `bson:"status" json:"status"`
+	CreatedTS time.Time  
