@@ -36,4 +36,8 @@ const (
 	USER_STATUS_ACTIVE  = "active"
 )
 
-func FetchUserKeyByUID(uid strin
+func FetchUserKeyByUID(uid string) (*User, error) {
+	var user User
+	getUserErr := db.FindOneById(db.DB, db.CollectionUser, uid, &user)
+	if getUserErr == nil {
+		r
