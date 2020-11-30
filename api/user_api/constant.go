@@ -28,4 +28,12 @@ type User struct {
 	HuobiKey  HuobiKeyDetail `bson:"huobi_key" json:"huobi_key"`
 	PushUID   int64          `bson:"push_uid" json:"push_uid"`
 	Status    string         `bson:"status" json:"status"`
-	CreatedTS time.Time  
+	CreatedTS time.Time      `bson:"created_ts" json:"created_ts"`
+}
+
+const (
+	USER_STATUS_DELETED = "deleted"
+	USER_STATUS_ACTIVE  = "active"
+)
+
+func FetchUserKeyByUID(uid strin
