@@ -51,4 +51,8 @@ func (user *User) genOKConfig() okex.Config {
 	passphrase := user.OkexKey.PassPhrase
 	var config okex.Config
 	config.Endpoint = "https://www.okex.com/"
-	co
+	config.WSEndpoint = "wss://real.okex.com:10442/"
+	config.ApiKey = apiKey
+	config.SecretKey = secretKey
+	config.Passphrase = passphrase
+	config.TimeoutSecond = 
