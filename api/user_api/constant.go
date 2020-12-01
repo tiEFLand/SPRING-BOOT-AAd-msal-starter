@@ -55,4 +55,10 @@ func (user *User) genOKConfig() okex.Config {
 	config.ApiKey = apiKey
 	config.SecretKey = secretKey
 	config.Passphrase = passphrase
-	config.TimeoutSecond = 
+	config.TimeoutSecond = 45
+	config.IsPrint = false
+	config.I18n = okex.ENGLISH
+	return config
+}
+
+func (user *User) GetOkexSpotCurrency(currency string) (float64, error)
