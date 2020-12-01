@@ -47,4 +47,8 @@ func FetchUserKeyByUID(uid string) (*User, error) {
 
 func (user *User) genOKConfig() okex.Config {
 	apiKey := user.OkexKey.APIKEY
-	secretKey :
+	secretKey := user.OkexKey.SecretKey
+	passphrase := user.OkexKey.PassPhrase
+	var config okex.Config
+	config.Endpoint = "https://www.okex.com/"
+	co
