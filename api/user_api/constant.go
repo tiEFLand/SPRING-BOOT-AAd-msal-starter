@@ -40,4 +40,11 @@ func FetchUserKeyByUID(uid string) (*User, error) {
 	var user User
 	getUserErr := db.FindOneById(db.DB, db.CollectionUser, uid, &user)
 	if getUserErr == nil {
-		r
+		return &user, nil
+	}
+	return nil, errors.New("user not found")
+}
+
+func (user *User) genOKConfig() okex.Config {
+	apiKey := user.OkexKey.APIKEY
+	secretKey :
