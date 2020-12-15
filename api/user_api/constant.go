@@ -61,4 +61,8 @@ func (user *User) genOKConfig() okex.Config {
 	return config
 }
 
-func (user *User) GetOkexSpotCurrency(currency string) (float64, error)
+func (user *User) GetOkexSpotCurrency(currency string) (float64, error) {
+	client := okex.NewClient(user.genOKConfig())
+
+	spotMap, err := client.GetSpotAccountsCurrency(currency)
+	if err !
