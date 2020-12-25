@@ -65,4 +65,10 @@ func (user *User) GetOkexSpotCurrency(currency string) (float64, error) {
 	client := okex.NewClient(user.genOKConfig())
 
 	spotMap, err := client.GetSpotAccountsCurrency(currency)
-	if err !
+	if err != nil {
+		return 0, err
+	}
+	fmt.Println(spotMap)
+
+	currencyFloat, err := strconv.ParseFloat((*spotMap)["available"].(string), 64)
+	if err != ni
