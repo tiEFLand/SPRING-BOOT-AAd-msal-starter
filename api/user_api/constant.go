@@ -71,4 +71,12 @@ func (user *User) GetOkexSpotCurrency(currency string) (float64, error) {
 	fmt.Println(spotMap)
 
 	currencyFloat, err := strconv.ParseFloat((*spotMap)["available"].(string), 64)
-	if err != ni
+	if err != nil {
+		return 0, err
+	}
+	return currencyFloat, nil
+}
+
+/*  -------------------------------HUOBI-------------------------------------*/
+
+func (user *Us
