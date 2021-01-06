@@ -79,4 +79,6 @@ func (user *User) GetOkexSpotCurrency(currency string) (float64, error) {
 
 /*  -------------------------------HUOBI-------------------------------------*/
 
-func (user *Us
+func (user *User) GetHuobiSpotCurrency(ticker string) (float64, error) {
+	// apiBuilder := builder.NewAPIBuilder().HttpTimeout(5 * time.Second)
+	// access_key
