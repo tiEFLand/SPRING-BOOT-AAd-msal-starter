@@ -19,3 +19,6 @@ import (
 创建用户
 */
 func CreateUserHandler(c *gin.Context) {
+	var user_request CreateUserRequest
+	if err := c.ShouldBindJSON(&user_request); err != nil {
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCo
