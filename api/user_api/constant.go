@@ -84,4 +84,10 @@ func (user *User) GetHuobiSpotCurrency(ticker string) (float64, error) {
 	// access_key := user.HuobiKey.APIKEY
 	// secret_key := user.HuobiKey.SecretKey
 
-	// api := apiBuilder.APIKey(access_key).APISecretkey(secret_ke
+	// api := apiBuilder.APIKey(access_key).APISecretkey(secret_key).Build(goex.HUOBI_PRO)
+	// account, err := api.GetAccount()
+	// if err != nil {
+	// 	return 0, nil
+	// }
+	return 0, nil
+	//return acco
