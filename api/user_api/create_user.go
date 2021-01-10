@@ -21,4 +21,9 @@ import (
 func CreateUserHandler(c *gin.Context) {
 	var user_request CreateUserRequest
 	if err := c.ShouldBindJSON(&user_request); err != nil {
-		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCo
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "parms err", Payload: nil})
+		return
+	}
+
+	// username唯一
+	count, err := db.FindCount(db.DB, db.CollectionUs
