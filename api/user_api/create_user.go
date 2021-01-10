@@ -28,4 +28,9 @@ func CreateUserHandler(c *gin.Context) {
 	// username唯一
 	count, err := db.FindCount(db.DB, db.CollectionUser, bson.M{"username": user_request.Username})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "d
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "db err", Payload: nil})
+		return
+	}
+
+	if count != 0 {
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user al
