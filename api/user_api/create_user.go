@@ -33,4 +33,9 @@ func CreateUserHandler(c *gin.Context) {
 	}
 
 	if count != 0 {
-		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user al
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user already exist", Payload: nil})
+		return
+	}
+
+	// add salt && sha256 password
+	salt := utils.GenRandomStr(time.Now().UnixNano(), 6
