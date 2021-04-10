@@ -38,4 +38,8 @@ func CreateUserHandler(c *gin.Context) {
 	}
 
 	// add salt && sha256 password
-	salt := utils.GenRandomStr(time.Now().UnixNano(), 6
+	salt := utils.GenRandomStr(time.Now().UnixNano(), 64)
+	h := sha256.New()
+	h.Write([]byte(user_request.Password + salt))
+	password := hex.EncodeToString(h.Sum(nil))
+	fmt.Printf("%s"
