@@ -42,4 +42,10 @@ func CreateUserHandler(c *gin.Context) {
 	h := sha256.New()
 	h.Write([]byte(user_request.Password + salt))
 	password := hex.EncodeToString(h.Sum(nil))
-	fmt.Printf("%s"
+	fmt.Printf("%s", password)
+	user := User{
+		UID:       utils.GenId(),
+		Username:  user_request.Username,
+		Password:  password,
+		Salt:      salt,
+		Status:    USE
