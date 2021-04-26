@@ -48,4 +48,9 @@ func CreateUserHandler(c *gin.Context) {
 		Username:  user_request.Username,
 		Password:  password,
 		Salt:      salt,
-		Status:    USE
+		Status:    USER_STATUS_ACTIVE,
+		CreatedTS: time.Now(),
+	}
+
+	if err := db.Insert(db.DB, db.CollectionUser, user); err == nil {
+		c.JSON(http.StatusOK, api.JSONReply{Err
