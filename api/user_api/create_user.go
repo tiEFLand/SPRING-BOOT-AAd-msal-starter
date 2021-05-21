@@ -55,4 +55,7 @@ func CreateUserHandler(c *gin.Context) {
 	if err := db.Insert(db.DB, db.CollectionUser, user); err == nil {
 		c.JSON(http.StatusOK, api.JSONReply{ErrorCode: 0, ErrorDescription: "success", Payload: nil})
 	} else {
-		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "d
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "db err", Payload: nil})
+	}
+
+}
