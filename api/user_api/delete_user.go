@@ -9,3 +9,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/gin-gonic/gin"
+)
+
+/**
+启动作业
+*/
+func DeleteUserHandler(c *gin.Context) {
+	var user_request DeleteUserRequest
+	if err := c.ShouldBindJSON(&user_request); err != 
