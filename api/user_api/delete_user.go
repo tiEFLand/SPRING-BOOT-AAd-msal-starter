@@ -21,4 +21,6 @@ func DeleteUserHandler(c *gin.Context) {
 		return
 	}
 
-	var 
+	var user User
+	if err := db.FindOneById(db.DB, db.CollectionUser, user_request.UID, &user); err != nil {
+		c.JSON(http.StatusBa
