@@ -23,4 +23,9 @@ func DeleteUserHandler(c *gin.Context) {
 
 	var user User
 	if err := db.FindOneById(db.DB, db.CollectionUser, user_request.UID, &user); err != nil {
-		c.JSON(http.StatusBa
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user not found", Payload: nil})
+		return
+	}
+
+	user.Status = USER_STATUS_DELETED
+	if err := db.U
