@@ -28,4 +28,5 @@ func DeleteUserHandler(c *gin.Context) {
 	}
 
 	user.Status = USER_STATUS_DELETED
-	if err := db.U
+	if err := db.Update(db.DB, db.CollectionUser, bson.M{"_id": user_request.UID}, &user); err == nil {
+		c.JSON(http.StatusOK, api.JSONReply{ErrorCode
