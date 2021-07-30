@@ -8,4 +8,8 @@ import (
 func checkPassword(passwordPlainText, passwordHashed, salt string) bool {
 	h := sha256.New()
 	h.Write([]byte(passwordPlainText + salt))
-	if hex.EncodeTo
+	if hex.EncodeToString(h.Sum(nil)) == passwordHashed {
+		return true
+	}
+	return false
+}
