@@ -5,4 +5,7 @@ import (
 	"encoding/hex"
 )
 
-func checkP
+func checkPassword(passwordPlainText, passwordHashed, salt string) bool {
+	h := sha256.New()
+	h.Write([]byte(passwordPlainText + salt))
+	if hex.EncodeTo
