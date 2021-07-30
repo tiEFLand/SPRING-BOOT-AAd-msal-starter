@@ -83,3 +83,7 @@ func maskRight(s string, length int) string {
 		for i := len(rs) - 1; i >= length; i-- {
 			rs[i] = '•'
 		}
+		return string(rs)
+	}
+	return ""
+}
