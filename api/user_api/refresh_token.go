@@ -26,4 +26,8 @@ func RefreshTokenHandler(c *gin.Context) {
 
 	var user User
 	if err := db.FindOne(db.DB, db.CollectionUser, bson.M{"_id": claims["uid"]}, nil, &user); err != nil {
-		c
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user not found", Payload: nil})
+		return
+	}
+
+	secretKey, _ := uti
