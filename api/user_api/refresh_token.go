@@ -21,3 +21,9 @@ import (
 启动作业
 */
 func RefreshTokenHandler(c *gin.Context) {
+
+	claims := jwt_gin.ExtractClaims(c)
+
+	var user User
+	if err := db.FindOne(db.DB, db.CollectionUser, bson.M{"_id": claims["uid"]}, nil, &user); err != nil {
+		c
