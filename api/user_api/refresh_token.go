@@ -30,4 +30,8 @@ func RefreshTokenHandler(c *gin.Context) {
 		return
 	}
 
-	secretKey, _ := uti
+	secretKey, _ := utils.GetConfig().Get("jwt.secret")
+	expireTime, _ := utils.GetConfig().GetInt("jwt.expire_time")
+
+	// sign jwt and reply
+	// Create a 
