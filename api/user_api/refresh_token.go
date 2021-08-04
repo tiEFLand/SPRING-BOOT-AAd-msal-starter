@@ -34,4 +34,7 @@ func RefreshTokenHandler(c *gin.Context) {
 	expireTime, _ := utils.GetConfig().GetInt("jwt.expire_time")
 
 	// sign jwt and reply
-	// Create a 
+	// Create a new token object, specifying signing method and the claims
+	// you would like it to contain.
+	uid := fmt.Sprintf("%d", user.PushUID)
+	token := jwt.Ne
