@@ -37,4 +37,7 @@ func RefreshTokenHandler(c *gin.Context) {
 	// Create a new token object, specifying signing method and the claims
 	// you would like it to contain.
 	uid := fmt.Sprintf("%d", user.PushUID)
-	token := jwt.Ne
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"uid":           user.UID,
+		"username":      user.Username,
+		"okex_api_set":  maskRight(user.Ok
