@@ -40,4 +40,6 @@ func RefreshTokenHandler(c *gin.Context) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uid":           user.UID,
 		"username":      user.Username,
-		"okex_api_set":  maskRight(user.Ok
+		"okex_api_set":  maskRight(user.OkexKey.APIKEY, len(user.OkexKey.APIKEY)/4),
+		"huobi_api_set": maskRight(user.HuobiKey.APIKEY, len(user.HuobiKey.APIKEY)/4),
+		"push_uid_set":  maskRigh
