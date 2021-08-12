@@ -42,4 +42,8 @@ func RefreshTokenHandler(c *gin.Context) {
 		"username":      user.Username,
 		"okex_api_set":  maskRight(user.OkexKey.APIKEY, len(user.OkexKey.APIKEY)/4),
 		"huobi_api_set": maskRight(user.HuobiKey.APIKEY, len(user.HuobiKey.APIKEY)/4),
-		"push_uid_set":  maskRigh
+		"push_uid_set":  maskRight(uid, len(uid)/4),
+		"exp":           time.Now().Local().Add(time.Hour * time.Duration(expireTime)).Unix(),
+	})
+
+	// Sign and get the c
