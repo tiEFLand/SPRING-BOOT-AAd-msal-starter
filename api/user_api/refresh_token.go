@@ -50,4 +50,6 @@ func RefreshTokenHandler(c *gin.Context) {
 	tokenString, err := token.SignedString([]byte(secretKey))
 
 	if err != nil {
-		fm
+		fmt.Println(tokenString, err)
+		c.JSON(http.StatusInternalServerError, api.JSONReply{ErrorCode: -1, ErrorDescription: "jwt sign err", Payload: nil})
+		return
