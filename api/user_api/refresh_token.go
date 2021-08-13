@@ -46,4 +46,8 @@ func RefreshTokenHandler(c *gin.Context) {
 		"exp":           time.Now().Local().Add(time.Hour * time.Duration(expireTime)).Unix(),
 	})
 
-	// Sign and get the c
+	// Sign and get the complete encoded token as a string using the secret
+	tokenString, err := token.SignedString([]byte(secretKey))
+
+	if err != nil {
+		fm
