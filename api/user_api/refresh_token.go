@@ -53,3 +53,9 @@ func RefreshTokenHandler(c *gin.Context) {
 		fmt.Println(tokenString, err)
 		c.JSON(http.StatusInternalServerError, api.JSONReply{ErrorCode: -1, ErrorDescription: "jwt sign err", Payload: nil})
 		return
+	}
+
+	c.JSON(http.StatusOK, api.JSONReply{ErrorCode: 0, ErrorDescription: "success", Payload: struct {
+		Token string `json:"token"`
+	}{
+		Token: tokenString
