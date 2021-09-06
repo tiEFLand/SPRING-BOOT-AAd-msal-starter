@@ -58,4 +58,7 @@ func RefreshTokenHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, api.JSONReply{ErrorCode: 0, ErrorDescription: "success", Payload: struct {
 		Token string `json:"token"`
 	}{
-		Token: tokenString
+		Token: tokenString,
+	}})
+
+}
