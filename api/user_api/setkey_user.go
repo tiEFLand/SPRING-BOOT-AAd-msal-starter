@@ -39,3 +39,8 @@ func SetKeyUserHandler(c *gin.Context) {
 	if user_request.OkexKey.PassPhrase != "" {
 		user.OkexKey.PassPhrase = user_request.OkexKey.PassPhrase
 	}
+	if user_request.HuobiKey.APIKEY != "" {
+		user.HuobiKey.APIKEY = user_request.HuobiKey.APIKEY
+	}
+	if user_request.HuobiKey.SecretKey != "" {
+	
