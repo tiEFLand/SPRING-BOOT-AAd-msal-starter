@@ -43,4 +43,10 @@ func SetKeyUserHandler(c *gin.Context) {
 		user.HuobiKey.APIKEY = user_request.HuobiKey.APIKEY
 	}
 	if user_request.HuobiKey.SecretKey != "" {
-	
+		user.HuobiKey.SecretKey = user_request.HuobiKey.SecretKey
+	}
+	if user_request.PushUID != 0 {
+		user.PushUID = user_request.PushUID
+	}
+
+	if err := db.U
