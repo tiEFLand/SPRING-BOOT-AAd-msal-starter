@@ -22,4 +22,7 @@ func SetKeyUserHandler(c *gin.Context) {
 		return
 	}
 
-	clai
+	claims := jwt.ExtractClaims(c)
+
+	var user User
+	if err := db.FindOne(db.DB, db.CollectionUser, bson.M{"username": claims["username"].(string)}, n
