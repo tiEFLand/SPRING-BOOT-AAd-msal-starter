@@ -49,4 +49,5 @@ func SetKeyUserHandler(c *gin.Context) {
 		user.PushUID = user_request.PushUID
 	}
 
-	if err := db.U
+	if err := db.Update(db.DB, db.CollectionUser, bson.M{"username": claims["username"].(string)}, &user); err == nil {
+		c.JSON(http.StatusOK, api.JSONReply{Err
