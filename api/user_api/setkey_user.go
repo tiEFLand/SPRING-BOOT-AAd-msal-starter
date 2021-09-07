@@ -34,4 +34,8 @@ func SetKeyUserHandler(c *gin.Context) {
 		user.OkexKey.APIKEY = user_request.OkexKey.APIKEY
 	}
 	if user_request.OkexKey.SecretKey != "" {
-		user.OkexKey.SecretKey 
+		user.OkexKey.SecretKey = user_request.OkexKey.SecretKey
+	}
+	if user_request.OkexKey.PassPhrase != "" {
+		user.OkexKey.PassPhrase = user_request.OkexKey.PassPhrase
+	}
