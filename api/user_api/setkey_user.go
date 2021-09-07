@@ -17,4 +17,9 @@ import (
 */
 func SetKeyUserHandler(c *gin.Context) {
 	var user_request SetKeyUserRequest
-	if err := c.ShouldBindJSON(&us
+	if err := c.ShouldBindJSON(&user_request); err != nil {
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "parms err", Payload: nil})
+		return
+	}
+
+	clai
