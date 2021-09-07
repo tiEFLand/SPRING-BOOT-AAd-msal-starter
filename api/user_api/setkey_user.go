@@ -25,4 +25,9 @@ func SetKeyUserHandler(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
 
 	var user User
-	if err := db.FindOne(db.DB, db.CollectionUser, bson.M{"username": claims["username"].(string)}, n
+	if err := db.FindOne(db.DB, db.CollectionUser, bson.M{"username": claims["username"].(string)}, nil, &user); err != nil {
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescription: "user not found", Payload: nil})
+		return
+	}
+
+	if user_
