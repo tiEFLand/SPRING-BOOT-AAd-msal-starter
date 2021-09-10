@@ -50,4 +50,6 @@ func SetKeyUserHandler(c *gin.Context) {
 	}
 
 	if err := db.Update(db.DB, db.CollectionUser, bson.M{"username": claims["username"].(string)}, &user); err == nil {
-		c.JSON(http.StatusOK, api.JSONReply{Err
+		c.JSON(http.StatusOK, api.JSONReply{ErrorCode: 0, ErrorDescription: "success", Payload: nil})
+	} else {
+		c.JSON(http.StatusBadRequest, api.JSONReply{ErrorCode: -1, ErrorDescr
