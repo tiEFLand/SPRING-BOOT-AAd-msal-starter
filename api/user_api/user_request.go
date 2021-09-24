@@ -13,4 +13,8 @@ type DeleteUserRequest struct {
 
 type LoginUserRequest struct {
 	Username string `json:"username"`
-	Pass
+	Password string `json:"password"`
+}
+
+type SetKeyUserRequest struct {
+	OkexKey  OkexKeyDetail  `bson:"okex_key" json:"okex_ke
