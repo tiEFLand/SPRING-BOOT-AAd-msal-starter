@@ -1,2 +1,16 @@
 redis:
-  url: re
+  url: redis://localhost:6379/1
+
+db:
+  name: crypto
+
+mongo:
+  url: mongodb://localhost:27017/crypto
+
+gin:
+  mode: debug
+
+api:
+  port: 5000
+
+jwt:
