@@ -12,4 +12,10 @@ package gotest
 
 import (
 	"fmt"
-	"github.com/okcoin-okex/o
+	"github.com/okcoin-okex/open-api-v3-sdk/okex-go-sdk-api"
+	"testing"
+)
+
+func TestOKExServerTime(t *testing.T) {
+	serverTime, err := NewOKExClient().GetServerTime()
+	
