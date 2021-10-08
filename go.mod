@@ -16,4 +16,5 @@ require (
 	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-08cad365cd28
 	github.com/nubo/jwt v0.0.0-20150918093313-da5b79c3bbaf // indirect
 	github.com/stretchr/testify v1.3.0
-	gopkg.in/mgo.v2 v2.0.0-2
+	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+)
