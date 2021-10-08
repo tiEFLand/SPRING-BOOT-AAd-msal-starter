@@ -10,4 +10,7 @@ require (
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-openapi/errors v0.19.2 // indirect
-	github.com/gomodule/redigo v
+	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/uuid v1.1.1 // indirect
+	github.com/gorilla/websocket v1.4.1
+	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-
