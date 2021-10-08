@@ -13,4 +13,7 @@ require (
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/websocket v1.4.1
-	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-
+	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-08cad365cd28
+	github.com/nubo/jwt v0.0.0-20150918093313-da5b79c3bbaf // indirect
+	github.com/stretchr/testify v1.3.0
+	gopkg.in/mgo.v2 v2.0.0-2
