@@ -31,4 +31,13 @@ func NewOKExClient() *okex.Client {
 	config.SecretKey = ""
 	config.Passphrase = ""
 	config.TimeoutSecond = 45
-	config.IsPrint = 
+	config.IsPrint = true
+	config.I18n = okex.ENGLISH
+
+	client := okex.NewClient(config)
+	return client
+}
+```
+### 3. run test go:
+```
+go test -v -run TestOKExServerTime okex_open_api_v3
