@@ -18,4 +18,12 @@ import (
 
 func TestOKExServerTime(t *testing.T) {
 	serverTime, err := NewOKExClient().GetServerTime()
-	
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println("OKEx's server time: ", serverTime)
+}
+
+func NewOKExClient() *okex.Client {
+	var config okex.Config
+	config.End
