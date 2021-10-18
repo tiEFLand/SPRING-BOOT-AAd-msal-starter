@@ -26,4 +26,9 @@ func TestOKExServerTime(t *testing.T) {
 
 func NewOKExClient() *okex.Client {
 	var config okex.Config
-	config.End
+	config.Endpoint = "https://www.okex.com/"
+	config.ApiKey = ""
+	config.SecretKey = ""
+	config.Passphrase = ""
+	config.TimeoutSecond = 45
+	config.IsPrint = 
