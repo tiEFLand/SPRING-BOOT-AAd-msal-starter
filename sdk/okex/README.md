@@ -40,4 +40,5 @@ func NewOKExClient() *okex.Client {
 ```
 ### 3. run test go:
 ```
-go test -v -run TestOKExServerTime okex_open_api_v3
+go test -v -run TestOKExServerTime okex_open_api_v3_test.go
+```
