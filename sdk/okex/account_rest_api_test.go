@@ -28,3 +28,98 @@ func TestGetAccountWallet(t *testing.T) {
 
 func TestGetAccountWithdrawalFeeByCurrency(t *testing.T) {
 	c := NewTestClient()
+	currency := "btc"
+	ac, err := c.GetAccountWithdrawalFeeByCurrency(&currency)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	ac, err = c.GetAccountWithdrawalFeeByCurrency(nil)
+	assert.True(t, err == nil)
+	jstr, _ = Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetAccountWithdrawalHistory(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountWithdrawalHistory()
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestClient_GetAccountWithdrawalHistoryByCurrency(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountWithdrawalHistoryByCurrency("btc")
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetAccountDepositAddress(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountDepositAddress("btc")
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetAccountDepositHistory(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountDepositHistory()
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetAccountDepositHistoryByCurrency(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountDepositHistoryByCurrency("btc")
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetAccountLeger(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountLeger(nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	optionals := NewParams()
+	optionals["type"] = "37"
+
+	ac, err = c.GetAccountLeger(&optionals)
+	assert.True(t, err == nil)
+	jstr, _ = Struct2JsonString(ac)
+	println(jstr)
+
+}
+
+func TestGetAccountWalletByCurrency(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetAccountWalletByCurrency("btc")
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestPostAccountWithdrawal(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.PostAccountWithdrawal("btc", "17DKe3kkkkiiiiTvAKKi2vMPbm1Bz3CMKw", "123456",
+		4, 1, 0.0005)
+	assert.True(t, ac != nil && err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+}
+
+func TestPostAccountTransfer(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.PostAccountTransfer("eos", 6, 5, 0.0001, nil)
+	assert.True(t, ac != nil && err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+}
