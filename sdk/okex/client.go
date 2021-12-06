@@ -180,3 +180,5 @@ func printResponse(status int, message string, body []byte) {
 	message = strings.Trim(message, " ")
 	fmt.Println("\tStatus: " + statusString)
 	fmt.Println("\tMessage: " + message)
+	fmt.Println("\tBody: " + string(body))
+}
