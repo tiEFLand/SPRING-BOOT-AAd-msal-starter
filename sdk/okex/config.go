@@ -8,4 +8,10 @@ package okex
 */
 
 type Config struct {
-	// Rest api endpoint url. eg: http://www.ok
+	// Rest api endpoint url. eg: http://www.okex.com/
+	Endpoint string
+
+	// Rest websocket api endpoint url. eg: ws://192.168.80.113:10442/
+	WSEndpoint string
+
+	// The user's api key provided by
