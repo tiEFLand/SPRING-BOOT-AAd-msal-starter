@@ -14,4 +14,8 @@ type Config struct {
 	// Rest websocket api endpoint url. eg: ws://192.168.80.113:10442/
 	WSEndpoint string
 
-	// The user's api key provided by
+	// The user's api key provided by OKEx.
+	ApiKey string
+	// The user's secret key provided by OKEx. The secret key used to sign your request data.
+	SecretKey string
+	// The Passphr
