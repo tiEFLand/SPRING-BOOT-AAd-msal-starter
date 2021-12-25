@@ -18,4 +18,7 @@ type Config struct {
 	ApiKey string
 	// The user's secret key provided by OKEx. The secret key used to sign your request data.
 	SecretKey string
-	// The Passphr
+	// The Passphrase will be provided by you to further secure your API access.
+	Passphrase string
+	// Http request timeout.
+	TimeoutSecond i
