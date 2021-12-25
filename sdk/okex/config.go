@@ -21,4 +21,9 @@ type Config struct {
 	// The Passphrase will be provided by you to further secure your API access.
 	Passphrase string
 	// Http request timeout.
-	TimeoutSecond i
+	TimeoutSecond int
+	// Whether to print API information
+	IsPrint bool
+	// Internationalization @see file: constants.go
+	I18n string
+}
