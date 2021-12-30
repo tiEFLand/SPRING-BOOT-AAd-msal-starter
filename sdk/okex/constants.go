@@ -19,4 +19,11 @@ const (
 	/**
 	  paging params
 	*/
-	OK_FROM  = "OK-
+	OK_FROM  = "OK-FROM"
+	OK_TO    = "OK-TO"
+	OK_LIMIT = "OK-LIMIT"
+
+	CONTENT_TYPE = "Content-Type"
+	ACCEPT       = "Accept"
+	COOKIE       = "Cookie"
+	LOCALE       =
