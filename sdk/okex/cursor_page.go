@@ -8,4 +8,6 @@ type CursorPage struct {
 	Before int
 	// Request page after (older) this pagination id.
 	After int
-	// Num
+	// Number of results per request. Maximum 100. (default 100)
+	Limit int
+}
