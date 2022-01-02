@@ -32,4 +32,9 @@ const (
 	APPLICATION_JSON_UTF8 = "application/json; charset=UTF-8"
 
 	/*
-	  i
+	  i18n: internationalization
+	*/
+	ENGLISH            = "en_US"
+	SIMPLIFIED_CHINESE = "zh_CN"
+	//zh_TW || zh_HK
+	TRADITIONAL_CHINESE = "zh_
