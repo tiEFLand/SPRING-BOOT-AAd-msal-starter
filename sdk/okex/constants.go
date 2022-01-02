@@ -50,4 +50,5 @@ const (
 	 others
 	*/
 	ResultDataJsonString = "resultDataJsonString"
-	
+	ResultPageJsonString = "resultPageJsonString"
+)
