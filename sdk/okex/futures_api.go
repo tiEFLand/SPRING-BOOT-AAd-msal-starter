@@ -228,3 +228,141 @@ func (client *Client) GetFuturesAccountsHoldsByInstrumentId(InstrumentId string)
 	var holds FuturesAccountsHolds
 	_, err := client.Request(GET, GetInstrumentIdUri(FUTURES_ACCOUNT_INSTRUMENT_HOLDS, InstrumentId), nil, &holds)
 	return holds, err
+}
+
+/*
+ Create a new order
+*/
+func (client *Client) FuturesOrder(newOrderParams FuturesNewOrderParams) (FuturesNewOrderResult, error) {
+	var newOrderResult FuturesNewOrderResult
+	_, err := client.Request(POST, FUTURES_ORDER, newOrderParams, &newOrderResult)
+	return newOrderResult, err
+}
+
+/*
+ Batch create new order.(Max of 5 orders are allowed per request)
+*/
+func (client *Client) FuturesOrders(batchNewOrder FuturesBatchNewOrderParams) (FuturesBatchNewOrderResult, error) {
+	var batchNewOrderResult FuturesBatchNewOrderResult
+	_, err := client.Request(POST, FUTURES_ORDERS, batchNewOrder, &batchNewOrderResult)
+	return batchNewOrderResult, err
+}
+
+/*
+ Get all of futures contract order list
+*/
+func (client *Client) GetFuturesOrders(InstrumentId string, status, from, to, limit int) (FuturesGetOrdersResult, error) {
+	var ordersResult FuturesGetOrdersResult
+	params := NewParams()
+	params["status"] = Int2String(status)
+	params["from"] = Int2String(from)
+	params["to"] = Int2String(to)
+	params["limit"] = Int2String(limit)
+	requestPath := BuildParams(GetInstrumentIdUri(FUTURES_INSTRUMENT_ORDER_LIST, InstrumentId), params)
+	_, err := client.Request(GET, requestPath, nil, &ordersResult)
+	return ordersResult, err
+}
+
+/*
+ Get all of futures contract a order by order id
+*/
+func (client *Client) GetFuturesOrder(InstrumentId string, orderId string) (FuturesGetOrderResult, error) {
+	var getOrderResult FuturesGetOrderResult
+	_, err := client.Request(GET, GetInstrumentIdOrdersUri(FUTURES_INSTRUMENT_ORDER_INFO, InstrumentId, orderId), nil, &getOrderResult)
+	return getOrderResult, err
+}
+
+/*
+ Batch Cancel the orders
+*/
+func (client *Client) BatchCancelFuturesInstrumentOrders(InstrumentId, orderIds string) (FuturesBatchCancelInstrumentOrdersResult, error) {
+	var cancelInstrumentOrdersResult FuturesBatchCancelInstrumentOrdersResult
+	params := NewParams()
+	params["order_ids"] = orderIds
+	_, err := client.Request(POST, GetInstrumentIdUri(FUTURES_INSTRUMENT_ORDER_BATCH_CANCEL, InstrumentId), params, &cancelInstrumentOrdersResult)
+	return cancelInstrumentOrdersResult, err
+}
+
+/*
+ Cancel the order
+*/
+func (client *Client) CancelFuturesInstrumentOrder(InstrumentId string, orderId string) (FuturesCancelInstrumentOrderResult, error) {
+	var cancelInstrumentOrderResult FuturesCancelInstrumentOrderResult
+	_, err := client.Request(POST, GetInstrumentIdOrdersUri(FUTURES_INSTRUMENT_ORDER_CANCEL, InstrumentId, orderId), nil,
+		&cancelInstrumentOrderResult)
+	return cancelInstrumentOrderResult, err
+}
+
+/*
+ Get all of futures contract transactions.
+*/
+func (client *Client) GetFuturesFills(InstrumentId string, orderId int64, optionalParams map[string]int) ([]FuturesFillResult, error) {
+	var fillsResult []FuturesFillResult
+	params := NewParams()
+	params["order_id"] = Int64ToString(orderId)
+	params["instrument_id"] = InstrumentId
+
+	if optionalParams != nil && len(optionalParams) > 0 {
+		params["from"] = Int2String(optionalParams["from"])
+		params["to"] = Int2String(optionalParams["to"])
+		params["limit"] = Int2String(optionalParams["limit"])
+	}
+
+	requestPath := BuildParams(FUTURES_FILLS, params)
+	_, err := client.Request(GET, requestPath, nil, &fillsResult)
+	return fillsResult, err
+}
+
+/*
+获取标记价格
+获取合约标记价格。此接口为公共接口，不需要身份验证。
+
+请求示例
+GET/api/futures/v3/instruments/BTC-USD-180309/mark_price
+*/
+func (c *Client) GetInstrumentMarkPrice(instrumentId string) (*FuturesMarkdown, error) {
+	uri := GetInstrumentIdUri(FUTURES_INSTRUMENT_MARK_PRICE, instrumentId)
+	r := FuturesMarkdown{}
+	_, err := c.Request(GET, uri, nil, &r)
+	return &r, err
+}
+
+func parsePositions(response *http.Response, err error) (FuturesPosition, error) {
+	var position FuturesPosition
+	if err != nil {
+		return position, err
+	}
+	var result Result
+	result.Result = false
+	jsonString := GetResponseDataJsonString(response)
+	if strings.Contains(jsonString, "\"margin_mode\":\"fixed\"") {
+		var fixedPosition FuturesFixedPosition
+		err = JsonString2Struct(jsonString, &fixedPosition)
+		if err != nil {
+			return position, err
+		} else {
+			position.Result = fixedPosition.Result
+			position.MarginMode = fixedPosition.MarginMode
+			position.FixedPosition = fixedPosition.FixedPosition
+		}
+	} else if strings.Contains(jsonString, "\"margin_mode\":\"crossed\"") {
+		var crossPosition FuturesCrossPosition
+		err = JsonString2Struct(jsonString, &crossPosition)
+		if err != nil {
+			return position, err
+		} else {
+			position.Result = crossPosition.Result
+			position.MarginMode = crossPosition.MarginMode
+			position.CrossPosition = crossPosition.CrossPosition
+		}
+	} else if strings.Contains(jsonString, "\"code\":") {
+		JsonString2Struct(jsonString, &position)
+		position.Result = result
+	} else {
+		position.Result = result
+	}
+
+	return position, nil
+}
+
+func parseAccounts(response *http.Response, err error) (FuturesAccount, error) {
