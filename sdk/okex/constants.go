@@ -26,4 +26,10 @@ const (
 	CONTENT_TYPE = "Content-Type"
 	ACCEPT       = "Accept"
 	COOKIE       = "Cookie"
-	LOCALE       =
+	LOCALE       = "locale="
+
+	APPLICATION_JSON      = "application/json"
+	APPLICATION_JSON_UTF8 = "application/json; charset=UTF-8"
+
+	/*
+	  i
