@@ -37,4 +37,17 @@ const (
 	ENGLISH            = "en_US"
 	SIMPLIFIED_CHINESE = "zh_CN"
 	//zh_TW || zh_HK
-	TRADITIONAL_CHINESE = "zh_
+	TRADITIONAL_CHINESE = "zh_HK"
+
+	/*
+	  http methods
+	*/
+	GET    = "GET"
+	POST   = "POST"
+	DELETE = "DELETE"
+
+	/*
+	 others
+	*/
+	ResultDataJsonString = "resultDataJsonString"
+	
