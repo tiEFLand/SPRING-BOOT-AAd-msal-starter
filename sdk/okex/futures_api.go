@@ -366,3 +366,129 @@ func parsePositions(response *http.Response, err error) (FuturesPosition, error)
 }
 
 func parseAccounts(response *http.Response, err error) (FuturesAccount, error) {
+	var account FuturesAccount
+	if err != nil {
+		return account, err
+	}
+	var result Result
+	result.Result = false
+	jsonString := GetResponseDataJsonString(response)
+	if strings.Contains(jsonString, "\"contracts\"") {
+		var fixedAccount FuturesFixedAccountInfo
+		err = JsonString2Struct(jsonString, &fixedAccount)
+		if err != nil {
+			return account, err
+		} else {
+			account.Result = fixedAccount.Result
+			account.FixedAccount = fixedAccount.Info
+			account.MarginMode = "fixed"
+		}
+	} else if strings.Contains(jsonString, "\"realized_pnl\"") {
+		var crossAccount FuturesCrossAccountInfo
+		err = JsonString2Struct(jsonString, &crossAccount)
+		if err != nil {
+			return account, err
+		} else {
+			account.Result = crossAccount.Result
+			account.MarginMode = "crossed"
+			account.CrossAccount = crossAccount.Info
+		}
+	} else if strings.Contains(jsonString, "\"code\":") {
+		JsonString2Struct(jsonString, &account)
+		account.Result = result
+	} else {
+		account.Result = result
+	}
+	return account, nil
+}
+
+func parseCurrencyAccounts(response *http.Response, err error) (FuturesCurrencyAccount, error) {
+	var currencyAccount FuturesCurrencyAccount
+	if err != nil {
+		return currencyAccount, err
+	}
+	jsonString := GetResponseDataJsonString(response)
+	var result Result
+	result.Result = true
+	if strings.Contains(jsonString, "\"margin_mode\":\"fixed\"") {
+		var fixedAccount FuturesFixedAccount
+		err = JsonString2Struct(jsonString, &fixedAccount)
+		if err != nil {
+			return currencyAccount, err
+		} else {
+			currencyAccount.Result = result
+			currencyAccount.MarginMode = fixedAccount.MarginMode
+			currencyAccount.FixedAccount = fixedAccount
+		}
+	} else if strings.Contains(jsonString, "\"margin_mode\":\"crossed\"") {
+		var crossAccount FuturesCrossAccount
+		err = JsonString2Struct(jsonString, &crossAccount)
+		if err != nil {
+			return currencyAccount, err
+		} else {
+			currencyAccount.Result = result
+			currencyAccount.MarginMode = crossAccount.MarginMode
+			currencyAccount.CrossAccount = crossAccount
+		}
+	} else if strings.Contains(jsonString, "\"code\":") {
+		result.Result = true
+		JsonString2Struct(jsonString, &currencyAccount)
+		currencyAccount.Result = result
+	} else {
+		result.Result = true
+		currencyAccount.Result = result
+	}
+	return currencyAccount, nil
+}
+
+func parsePage(response *http.Response) PageResult {
+	var page PageResult
+	jsonString := GetResponsePageJsonString(response)
+	JsonString2Struct(jsonString, &page)
+	return page
+}
+
+/*
+设定合约币种杠杆倍数
+设定合约账户币种杠杆倍数，注意当前仓位有持仓或者挂单禁止切换杠杆。
+
+HTTP请求
+POST /api/futures/v3/accounts/<currency>/leverage
+
+请求示例
+POST/api/futures/v3/accounts/btc/leverage{"leverage":"10"}（全仓示例）
+POST/api/futures/v3/accounts/btc/leverage{"instrument_id":"BTC-USD-180213","direction":"long","leverage":"10"}（逐仓示例）
+
+*/
+func (c *Client) PostFuturesAccountsLeverage(currency string, leverage int, optionalParams map[string]string) (map[string]interface{}, error) {
+	uri := GetCurrencyUri(FUTURES_ACCOUNT_CURRENCY_LEVERAGE, currency)
+	params := NewParams()
+	params["leverage"] = Int2String(leverage)
+
+	if optionalParams != nil && len(optionalParams) > 0 {
+		params["instrument_id"] = optionalParams["instrument_id"]
+		params["direction"] = optionalParams["direction"]
+	}
+
+	r := new(map[string]interface{})
+	_, err := c.Request(POST, uri, params, r)
+
+	return *r, err
+}
+
+/*
+获取合约账户币种杠杆倍数
+
+限速规则：5次/2s
+HTTP请求
+GET /api/futures/v3/accounts/<currency>/leverage
+
+请求示例
+GET/api/futures/v3/accounts/btc/leverage
+*/
+func (c *Client) GetFuturesAccountsLeverage(currency string) (map[string]interface{}, error) {
+	uri := GetCurrencyUri(FUTURES_ACCOUNT_CURRENCY_LEVERAGE, currency)
+	r := new(map[string]interface{})
+	_, err := c.Request(GET, uri, nil, r)
+	return *r, err
+}

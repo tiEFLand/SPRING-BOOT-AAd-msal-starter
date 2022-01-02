@@ -1,0 +1,4 @@
+package okex
+
+/*
+ Futures constant
