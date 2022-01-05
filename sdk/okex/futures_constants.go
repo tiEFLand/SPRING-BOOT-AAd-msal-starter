@@ -19,4 +19,21 @@ const (
 	XRP = 15
 	EOS = 20
 	BTG = 10
-	/
+	/*
+		transaction type
+	*/
+	OPEN_LONG   = 1
+	OPEN_SHORT  = 2
+	CLOSE_LONG  = 3
+	CLOSE_SHORT = 4
+
+	/*
+	 margin mode
+	*/
+	CROSS = 1
+	FIXED = 2
+
+	/*
+	 candles bin size
+	*/
+	CAN
