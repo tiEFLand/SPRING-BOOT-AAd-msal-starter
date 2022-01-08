@@ -36,4 +36,11 @@ const (
 	/*
 	 candles bin size
 	*/
-	CAN
+	CANDLES_1MIN   = 60
+	CANDLES_3MIN   = 180
+	CANDLES_5MIN   = 300
+	CANDLES_15MIN  = 900
+	CANDLES_30MIN  = 1800
+	CANDLES_1HOUR  = 3600
+	CANDLES_2HOUR  = 7200
+	
