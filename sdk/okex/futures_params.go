@@ -9,4 +9,6 @@ package okex
 
 /*
  Create a new order
- ClientOid
+ ClientOid: You setting order id.(optional)
+ Type: The execution type @see file: futures_constants.go
+ InstrumentId: The id of the futures, eg: BTC_U
