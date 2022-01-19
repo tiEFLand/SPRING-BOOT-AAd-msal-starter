@@ -11,4 +11,7 @@ package okex
  Create a new order
  ClientOid: You setting order id.(optional)
  Type: The execution type @see file: futures_constants.go
- InstrumentId: The id of the futures, eg: BTC_U
+ InstrumentId: The id of the futures, eg: BTC_USD_0331
+ Price: The order price: Maximum 1 million
+ Amount: The order amount: Maximum 1 million
+ MatchPrice: Match best counter party price (BBO)? 0:
