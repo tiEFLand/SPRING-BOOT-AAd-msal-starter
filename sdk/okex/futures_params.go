@@ -14,4 +14,8 @@ package okex
  InstrumentId: The id of the futures, eg: BTC_USD_0331
  Price: The order price: Maximum 1 million
  Amount: The order amount: Maximum 1 million
- MatchPrice: Match best counter party price (BBO)? 0:
+ MatchPrice: Match best counter party price (BBO)? 0: No 1: Yes   If yes, the 'price' field is ignored
+ LeverRate: lever, default 10.
+*/
+type FuturesNewOrderParams struct {
+	InstrumentId string
