@@ -18,4 +18,7 @@ package okex
  LeverRate: lever, default 10.
 */
 type FuturesNewOrderParams struct {
-	InstrumentId string
+	InstrumentId string `json:"instrument_id"`
+	Leverage     string `json:"leverage"`
+	OrderType    string `json:"order_type,omitempty"`
+	FuturesBatchNewOrderIte
