@@ -21,4 +21,10 @@ type FuturesNewOrderParams struct {
 	InstrumentId string `json:"instrument_id"`
 	Leverage     string `json:"leverage"`
 	OrderType    string `json:"order_type,omitempty"`
-	FuturesBatchNewOrderIte
+	FuturesBatchNewOrderItem
+}
+
+/*
+  OrdersData: Batch create new orders json string.(Max of 5 orders are allowed per request))
+*/
+type FuturesBatchNewOrderParams struc
