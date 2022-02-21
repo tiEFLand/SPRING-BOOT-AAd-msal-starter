@@ -27,4 +27,10 @@ type FuturesNewOrderParams struct {
 /*
   OrdersData: Batch create new orders json string.(Max of 5 orders are allowed per request))
 */
-type FuturesBatchNewOrderParams struc
+type FuturesBatchNewOrderParams struct {
+	InstrumentId string `json:"instrument_id"`
+	Leverage     string `json:"leverage"`
+	OrdersData   string `json:"orders_data"`
+}
+
+ty
