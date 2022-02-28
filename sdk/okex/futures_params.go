@@ -33,4 +33,7 @@ type FuturesBatchNewOrderParams struct {
 	OrdersData   string `json:"orders_data"`
 }
 
-ty
+type FuturesBatchNewOrderItem struct {
+	ClientOid  string `json:"client_oid"`
+	Type       string `json:"type"`
+	Price      string `jso
