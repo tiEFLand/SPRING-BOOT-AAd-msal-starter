@@ -42,4 +42,10 @@ type FuturesBatchNewOrderItem struct {
 }
 
 type FuturesClosePositionParams struct {
-	ClosePositionData []ClosePo
+	ClosePositionData []ClosePositionData
+}
+
+type ClosePositionData struct {
+	InstrumentId string `json:"instrument_id"`
+	Type         string `json:"type"`
+	LeverRate   
