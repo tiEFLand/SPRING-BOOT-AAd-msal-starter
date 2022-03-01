@@ -36,4 +36,10 @@ type FuturesBatchNewOrderParams struct {
 type FuturesBatchNewOrderItem struct {
 	ClientOid  string `json:"client_oid"`
 	Type       string `json:"type"`
-	Price      string `jso
+	Price      string `json:"price"`
+	Size       string `json:"size"`
+	MatchPrice string `json:"match_price"`
+}
+
+type FuturesClosePositionParams struct {
+	ClosePositionData []ClosePo
