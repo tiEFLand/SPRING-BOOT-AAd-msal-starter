@@ -48,4 +48,9 @@ type FuturesClosePositionParams struct {
 type ClosePositionData struct {
 	InstrumentId string `json:"instrument_id"`
 	Type         string `json:"type"`
-	LeverRate   
+	LeverRate    string `json:"lever_rate"`
+}
+
+/*
+ Order status: 0: waiting for transaction 1: 1: part of the deal 2: all transactions 3: cancelling 4: canceled.
+ Curr
