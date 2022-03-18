@@ -53,4 +53,11 @@ type ClosePositionData struct {
 
 /*
  Order status: 0: waiting for transaction 1: 1: part of the deal 2: all transactions 3: cancelling 4: canceled.
- Curr
+ Currency: futures currencies @see file: futures_constants.go
+*/
+type FuturesOrdersParams struct {
+	Currency string
+	Status   int
+}
+
+type FuturesFillsParams
