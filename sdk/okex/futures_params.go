@@ -60,4 +60,7 @@ type FuturesOrdersParams struct {
 	Status   int
 }
 
-type FuturesFillsParams
+type FuturesFillsParams struct {
+	OrderId      string `json:"order_id"`
+	InstrumentId string `json:"instrument_id"`
+}
