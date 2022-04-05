@@ -169,3 +169,169 @@ func (client *Client) GetMarginOrders(instrumentId string, optionalParams *map[s
 
 /*
 获取订单信息
+通过订单ID获取单个订单信息。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/margin/v3/orders/<order_id>
+或者
+GET /api/margin/v3/orders/<client_oid>
+*/
+func (client *Client) GetMarginOrdersById(instrumentId, orderOrClientId string) (*map[string]interface{}, error) {
+
+	r := map[string]interface{}{}
+	uri := strings.Replace(MARGIN_ORDERS_BY_ID, "{order_client_id}", orderOrClientId, -1)
+
+	fullParams := NewParams()
+	fullParams["instrument_id"] = instrumentId
+	uri = BuildParams(uri, fullParams)
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+
+}
+
+/*
+获取所有未成交订单
+列出您当前所有的订单信息。这个请求支持分页，并且按时间倒序排序和存储，最新的排在最前面。请参阅分页部分以获取第一页之后的其他纪录。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/margin/v3/orders_pending
+*/
+func (client *Client) GetMarginOrdersPending(optionalParams *map[string]string) (*[]map[string]interface{}, error) {
+	r := []map[string]interface{}{}
+
+	uri := MARGIN_ORDERS_PENDING
+	if optionalParams != nil && len(*optionalParams) > 0 {
+		uri = BuildParams(uri, *optionalParams)
+	}
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取成交明细
+获取最近的成交明细列表。这个请求支持分页，并且按时间倒序排序和存储，最新的排在最前面。请参阅分页部分以获取第一页之后的其他纪录。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/margin/v3/fills
+*/
+func (client *Client) GetMarginFills(instrumentId, orderId string, optionalParams *map[string]string) (*[]map[string]interface{}, error) {
+	r := []map[string]interface{}{}
+
+	fullParams := NewParams()
+	fullParams["instrument_id"] = instrumentId
+	fullParams["order_id"] = orderId
+
+	if optionalParams != nil && len(*optionalParams) > 0 {
+		for k, v := range *optionalParams {
+			if v != "" && len(v) > 0 {
+				fullParams[k] = v
+			}
+		}
+	}
+
+	uri := BuildParams(MARGIN_FILLS, fullParams)
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+借币
+在某个币币杠杆账户里进行借币。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/margin/v3/accounts/borrow
+*/
+func (client *Client) PostMarginAccountsBorrow(instrumentId, currency, amount string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	bodyParams := NewParams()
+	bodyParams["instrument_id"] = instrumentId
+	bodyParams["currency"] = currency
+	bodyParams["amount"] = amount
+
+	if _, err := client.Request(POST, MARGIN_ACCOUNTS_BORROW, bodyParams, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+/*
+还币
+在某个币币杠杆账户里进行还币。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/margin/v3/accounts/repayment
+*/
+func (client *Client) PostMarginAccountsRepayment(instrumentId, currency, amount string, optionalBorrowId *string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	bodyParams := NewParams()
+	bodyParams["instrument_id"] = instrumentId
+	bodyParams["currency"] = currency
+	bodyParams["amount"] = amount
+
+	if optionalBorrowId != nil && len(*optionalBorrowId) > 0 {
+		bodyParams["borrow_id"] = *optionalBorrowId
+	}
+
+	if _, err := client.Request(POST, MARGIN_ACCOUNTS_REPAYMENT, bodyParams, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+下单
+OKEx API提供limit和market两种下单模式。只有当您的账户有足够的资金才能下单。一旦下单，您的账户资金将在订单生命周期内被冻结。被冻结的资金以及数量取决于订单指定的类型和参数。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/margin/v3/orders
+*/
+func (client *Client) PostMarginOrders(side, instrument_id string, optionalOrderInfo *map[string]string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	postParams := NewParams()
+	postParams["side"] = side
+	postParams["instrument_id"] = instrument_id
+
+	if optionalOrderInfo != nil && len(*optionalOrderInfo) > 0 {
+		postParams["client_oid"] = (*optionalOrderInfo)["client_oid"]
+		postParams["type"] = (*optionalOrderInfo)["type"]
+		postParams["margin_trading"] = (*optionalOrderInfo)["margin_trading"]
+
+		if postParams["type"] == "limit" {
+			postParams["price"] = (*optionalOrderInfo)["price"]
+			postParams["size"] = (*optionalOrderInfo)["size"]
+
+		} else if postParams["type"] == "market" {
+			postParams["size"] = (*optionalOrderInfo)["size"]
+			postParams["notional"] = (*optionalOrderInfo)["notional"]
+
+		}
+	}
+
+	if _, err := client.Request(POST, MARGIN_ORDERS, postParams, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+批量下单
+下指定币对的多个订单（每次只能下最多4个币对且每个币对可批量下10个单）。
