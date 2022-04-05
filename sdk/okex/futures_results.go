@@ -316,3 +316,29 @@ type FuturesInstrumentEstimatedPriceResult struct {
 	SettlementPrice float64 `json:"settlement_price,string"`
 	Timestamp       string  `json:"timestamp"`
 }
+
+type FuturesInstrumentOpenInterestResult struct {
+	InstrumentId string `json:"instrument_id"`
+	Amount       int64  `json:"amount,string"`
+	Timestamp    string `json:"timestamp"`
+}
+
+type FuturesInstrumentPriceLimitResult struct {
+	InstrumentId string  `json:"instrument_id"`
+	Highest      float64 `json:"highest,string"`
+	Lowest       float64 `json:"lowest,string"`
+	Timestamp    string  `json:"timestamp"`
+}
+
+type FuturesInstrumentLiquidationListResult struct {
+	Page            PageResult
+	LiquidationList []FuturesInstrumentLiquidationResult
+}
+
+type FuturesInstrumentLiquidationResult struct {
+	InstrumentId string  `json:"instrument_id"`
+	Price        float64 `json:"price"`
+	Size         int64   `json:"size"`
+	Loss         float64 `json:"loss"`
+	CreatedAt    string  `json:"created_at"`
+}
