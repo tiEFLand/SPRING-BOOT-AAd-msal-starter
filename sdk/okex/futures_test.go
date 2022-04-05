@@ -292,3 +292,103 @@ func TestFuturesOrders(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	FmtPrintln("Futures new orders: ", result)
+}
+
+func TestGetFuturesOrders(t *testing.T) {
+	status, from, to, limit := 0, 1, 0, 5
+	orderList, err := NewTestClient().GetFuturesOrders(InstrumentId, status, from, to, limit)
+	if err != nil {
+		t.Error(err)
+	}
+	FmtPrintln("Futures Instrument order list: ", orderList)
+}
+
+func TestGetFuturesOrder(t *testing.T) {
+	orderId := int64(1713584667466752)
+	order, err := NewTestClient().GetFuturesOrder(InstrumentId, orderId)
+	if err != nil {
+		t.Error(err)
+	}
+	FmtPrintln("Futures Instrument order: ", order)
+}
+
+func TestBatchCancelFuturesInstrumentOrders(t *testing.T) {
+	var orderIds [3]int64
+	orderIds[0] = 1713484060138496
+	orderIds[1] = 1713484060990464
+	orderIds[2] = 1713484061907968
+	json, err := Struct2JsonString(orderIds)
+	if err != nil {
+		t.Error(err)
+	}
+	result, err := NewTestClient().BatchCancelFuturesInstrumentOrders(InstrumentId, json)
+	if err != nil {
+		t.Error(err)
+	}
+	FmtPrintln("Futures Instrument batch cancel order: ", result)
+}
+
+func TestCancelFuturesInstrumentOrder(t *testing.T) {
+	orderId := int64(1713484063611904)
+	result, err := NewTestClient().CancelFuturesInstrumentOrder(InstrumentId, orderId)
+	if err != nil {
+		t.Error(err)
+	}
+	FmtPrintln("Futures Instrument cancel order: ", result)
+}
+
+func TestGetFuturesFills(t *testing.T) {
+	orderId := int64(1713584667466752)
+	from, to, limit := 1, 0, 5
+	optionals := map[string]int{}
+	optionals["from"] = from
+	optionals["to"] = to
+	optionals["limit"] = limit
+	result, err := NewTestClient().GetFuturesFills(InstrumentId, orderId, optionals)
+	if err != nil {
+		t.Error(err)
+	}
+	FmtPrintln("Futures Instrument fills: ", result)
+}
+
+func getValidInstrumentId() string {
+	c := NewTestClient()
+	insList, err := c.GetFuturesInstruments()
+	if err == nil {
+		return insList[0].InstrumentId
+	}
+
+	return InstrumentId
+}
+
+func TestGetInstrumentMarkPrice(t *testing.T) {
+	insId := getValidInstrumentId()
+	r, e := NewTestClient().GetInstrumentMarkPrice(insId)
+	simpleAssertTrue(r, e, t, false)
+	assert.True(t, r.Code == 0)
+}
+
+func TestFuturesAccountsLeverage(t *testing.T) {
+	c := NewTestClient()
+	r, e := c.GetFuturesAccountsLeverage(currency)
+	//assert.True(t, r["code"] == nil)
+	simpleAssertTrue(r, e, t, true)
+
+	// PostFuturesAccountsLeverage. 设定合约账户币种杠杆倍数，注意当前仓位有持仓或者挂单禁止切换杠杆。
+	// lingting.fu. 20190225. Cleanup your test env yourself before running test case.
+	//
+	// The following 2 cases might fail because of
+	// 		a. Not satisfying position or order requirements.
+	//		b. Invalid Authority
+	// Post C1. Full Position
+	r, e = c.PostFuturesAccountsLeverage(currency, 10, nil)
+	simpleAssertTrue(r, e, t, false)
+
+	// Post C2. One Position
+	params := NewParams()
+	params["instrument_id"] = getValidInstrumentId()
+	params["direction"] = "long"
+	r, e = c.PostFuturesAccountsLeverage(currency, 10, params)
+	simpleAssertTrue(r, e, t, false)
+}
