@@ -181,3 +181,138 @@ type FuturesBatchNewOrderResult struct {
 	Result
 	OrderInfo []OrderInfo `json:"order_info"`
 }
+
+type CodeMessage struct {
+	ErrorCode    string `json:"error_code"`
+	ErrorMessage string `json:"error_message"`
+}
+
+/*
+  If OrderId = -1, ErrorCode > 0, error order
+*/
+type OrderInfo struct {
+	ClientOid string `json:"client_oid"`
+	OrderId   string `json:"order_id"`
+	Result    bool   `json:"result"`
+	CodeMessage
+}
+
+type FuturesCancelInstrumentOrderResult struct {
+	Result
+	OrderId      string `json:"order_id"`
+	InstrumentId string `json:"instrument_id"`
+}
+
+type FuturesBatchCancelInstrumentOrdersResult struct {
+	Result
+	OrderIds     []string `json:"order_ids"`
+	InstrumentId string   `json:"instrument_id"`
+}
+
+type FuturesClosePositionResult struct {
+	Result
+	ClosePositionInfo []ClosePositionInfo `json:"close_position_info"`
+}
+
+type ClosePositionInfo struct {
+	InstrumentId string `json:"instrument_id"`
+	CodeMessage
+}
+
+type FuturesGetOrdersResult struct {
+	Result
+	Orders []FuturesGetOrderResult `json:"order_info"`
+}
+
+type FuturesGetOrderResult struct {
+	InstrumentId string  `json:"instrument_id"`
+	Size         int64   `json:"size,string"`
+	Timestamp    string  `json:"timestamp"`
+	FilledQty    float64 `json:"filled_qty,string"`
+	Fee          float64 `json:"fee,string"`
+	OrderId      int64   `json:"order_id,string"`
+	Price        float64 `json:"price,string"`
+	PriceAvg     float64 `json:"price_avg,string"`
+	//"-2":失败,"-1":撤单成功,"0":等待成交 ,"1":部分成交, "2":完全成交,"3":下单中,"4":撤单中
+	State       int     `json:"state,string"`
+	Type        int     `json:"type,string"`
+	ContractVal float64 `json:"contract_val,string"`
+	Leverage    float64 `json:"leverage,string"`
+}
+
+type FuturesFillResult struct {
+	TradeId      int64   `json:"trade_id,string"`
+	InstrumentId string  `json:"instrument_id"`
+	Price        float64 `json:"price,string"`
+	OrderQty     float64 `json:"order_qty,string"`
+	OrderId      int64   `json:"order_id,string"`
+	CreatedAt    string  `json:"created_at"`
+	ExecType     string  `json:"exec_type"`
+	Fee          float64 `json:"fee,string"`
+	Side         string  `json:"side"`
+}
+
+type FuturesUsersSelfTrailingVolumesResult struct {
+	FuturesUsersSelfTrailingVolumeResult []FuturesUsersSelfTrailingVolumeResult
+}
+
+type FuturesUsersSelfTrailingVolumeResult struct {
+	InstrumentId   string  `json:"instrument_id"`
+	ExchangeVolume float64 `json:"exchange_volume,string"`
+	Volume         float64 `json:"volume,string"`
+	RecordedAt     string  `json:"recorded_at"`
+}
+
+type FuturesInstrumentsResult struct {
+	InstrumentId    string  `json:"instrument_id"`
+	UnderlyingIndex string  `json:"underlying_index"`
+	QuoteCurrency   string  `json:"quote_currency"`
+	TickSize        float64 `json:"tick_size,string"`
+	ContractVal     float64 `json:"contract_val,string"`
+	Listing         string  `json:"listing"`
+	Delivery        string  `json:"delivery"`
+	TradeIncrement  float64 `json:"trade_increment,string"`
+}
+
+type FuturesInstrumentCurrenciesResult struct {
+	Id      int64   `json:"id,string"`
+	Name    string  `json:"name"`
+	MinSize float64 `json:"min_size,string"`
+}
+
+type FuturesInstrumentBookResult struct {
+	Asks      [][]float64 `json:"asks,string"`
+	Bids      [][]float64 `json:"bids,string"`
+	Timestamp string      `json:"timestamp"`
+}
+
+type FuturesInstrumentTickerResult struct {
+	InstrumentId string  `json:"instrument_id"`
+	BestBid      float64 `json:"best_bid,string"`
+	BestAsk      float64 `json:"best_ask,string"`
+	High24h      float64 `json:"high_24h,string"`
+	Low24h       float64 `json:"low_24h,string"`
+	Last         float64 `json:"last,string"`
+	Volume24h    float64 `json:"volume_24h,string"`
+	Timestamp    string  `json:"timestamp"`
+}
+
+type FuturesInstrumentTradesResult struct {
+	TradeId   string  `json:"trade_id"`
+	Side      string  `json:"side"`
+	Price     float64 `json:"price,string"`
+	Qty       float64 `json:"qty,string"`
+	Timestamp string  `json:"timestamp"`
+}
+
+type FuturesInstrumentIndexResult struct {
+	InstrumentId string  `json:"instrument_id"`
+	Index        float64 `json:"index,string"`
+	Timestamp    string  `json:"timestamp"`
+}
+
+type FuturesInstrumentEstimatedPriceResult struct {
+	InstrumentId    string  `json:"instrument_id"`
+	SettlementPrice float64 `json:"settlement_price,string"`
+	Timestamp       string  `json:"timestamp"`
+}
