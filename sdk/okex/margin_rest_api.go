@@ -335,3 +335,57 @@ func (client *Client) PostMarginOrders(side, instrument_id string, optionalOrder
 /*
 批量下单
 下指定币对的多个订单（每次只能下最多4个币对且每个币对可批量下10个单）。
+
+限速规则：50次/2s
+HTTP请求
+POST /api/spot/v3/batch_orders
+*/
+func (client *Client) PostMarginBatchOrders(orderInfos *[]map[string]string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+	if _, err := client.Request(POST, MARGIN_BATCH_ORDERS, orderInfos, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+撤销指定订单
+撤销之前下的未完成订单。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/margin/v3/cancel_orders/<order_id>
+或者
+POST /api/margin/v3/cancel_orders/<client_oid>
+*/
+func (client *Client) PostMarginCancelOrdersById(instrumentId, orderOrClientId string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+	uri := strings.Replace(MARGIN_CANCEL_ORDERS_BY_ID, "{order_client_id}", orderOrClientId, -1)
+
+	fullParams := NewParams()
+	fullParams["instrument_id"] = instrumentId
+	uri = BuildParams(uri, fullParams)
+
+	if _, err := client.Request(POST, uri, fullParams, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+批量撤销订单
+撤销指定的某一种或多种币对的所有未完成订单，每个币对可批量撤10个单。
+
+限速规则：50次/2s
+HTTP请求
+POST /api/margin/v3/cancel_batch_orders
+*/
+func (client *Client) PostMarginCancelBatchOrders(orderInfos *[]map[string]string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	if _, err := client.Request(POST, MARGIN_CANCEL_BATCH_ORDERS, *orderInfos, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
