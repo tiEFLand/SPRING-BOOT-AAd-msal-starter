@@ -226,3 +226,147 @@ func (client *Client) GetSpotInstrumentsTicker() (*[]map[string]interface{}, err
 	}
 	return &r, nil
 }
+
+/*
+获取某个ticker信息
+获取币对的最新成交价、买一价、卖一价和24小时交易量的快照信息。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/spot/v3/instruments/<instrument-id>/ticker
+*/
+func (client *Client) GetSpotInstrumentTicker(instrument_id string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	uri := GetInstrumentIdUri(SPOT_INSTRUMENT_TICKER, instrument_id)
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取成交数据
+获取币对最新的60条成交列表。这个请求支持分页，并且按时间倒序排序和存储，最新的排在最前面。请参阅分页部分以获取第一页之后的其他纪录。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/spot/v3/instruments/<instrument_id>/trades
+*/
+func (client *Client) GetSpotInstrumentTrade(instrument_id string, options *map[string]string) (*[]map[string]interface{}, error) {
+	r := []map[string]interface{}{}
+
+	uri := GetInstrumentIdUri(SPOT_INSTRUMENT_TRADES, instrument_id)
+	fullOptions := NewParams()
+	if options != nil && len(*options) > 0 {
+		fullOptions["from"] = (*options)["from"]
+		fullOptions["to"] = (*options)["to"]
+		fullOptions["limit"] = (*options)["limit"]
+		uri = BuildParams(uri, fullOptions)
+	}
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取成交数据
+获取币对最新的60条成交列表。这个请求支持分页，并且按时间倒序排序和存储，最新的排在最前面。请参阅分页部分以获取第一页之后的其他纪录。
+
+限速规则：20次/2s
+HTTP请求
+GET /api/spot/v3/instruments/<instrument_id>/candles
+*/
+func (client *Client) GetSpotInstrumentCandles(instrument_id string, options *map[string]string) (*[]interface{}, error) {
+	r := []interface{}{}
+
+	uri := GetInstrumentIdUri(SPOT_INSTRUMENT_CANDLES, instrument_id)
+	fullOptions := NewParams()
+	if options != nil && len(*options) > 0 {
+		fullOptions["start"] = (*options)["start"]
+		fullOptions["end"] = (*options)["end"]
+		fullOptions["granularity"] = (*options)["granularity"]
+		uri = BuildParams(uri, fullOptions)
+	}
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+下单
+OKEx币币交易提供限价单和市价单两种下单模式(更多下单模式将会在后期支持)。只有当您的账户有足够的资金才能下单。
+
+一旦下单，您的账户资金将在订单生命周期内被冻结。被冻结的资金以及数量取决于订单指定的类型和参数。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/spot/v3/orders
+*/
+func (client *Client) PostSpotOrders(side, instrument_id string, optionalOrderInfo *map[string]string) (OrderInfo, error) {
+	r := OrderInfo{}
+	postParams := NewParams()
+	postParams["side"] = side
+	postParams["instrument_id"] = instrument_id
+
+	if optionalOrderInfo != nil && len(*optionalOrderInfo) > 0 {
+		postParams["client_oid"] = (*optionalOrderInfo)["client_oid"]
+		postParams["type"] = (*optionalOrderInfo)["type"]
+		postParams["order_type"] = (*optionalOrderInfo)["order_type"]
+
+		if postParams["type"] == "limit" {
+			postParams["price"] = (*optionalOrderInfo)["price"]
+			postParams["size"] = (*optionalOrderInfo)["size"]
+
+		} else if postParams["type"] == "market" {
+			postParams["size"] = (*optionalOrderInfo)["size"]
+			postParams["notional"] = (*optionalOrderInfo)["notional"]
+
+		}
+	}
+
+	_, err := client.Request(POST, SPOT_ORDERS, postParams, &r)
+	return r, err
+}
+
+/*
+批量下单
+下指定币对的多个订单（每次只能下最多4个币对且每个币对可批量下10个单）。
+
+限速规则：50次/2s
+HTTP请求
+POST /api/spot/v3/batch_orders
+*/
+func (client *Client) PostSpotBatchOrders(orderInfos *[]map[string]string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+	if _, err := client.Request(POST, SPOT_BATCH_ORDERS, orderInfos, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+撤销指定订单
+撤销之前下的未完成订单。
+
+限速规则：100次/2s
+HTTP请求
+POST /api/spot/v3/cancel_orders/<order_id>
+或者
+POST /api/spot/v3/cancel_orders/<client_oid>
+*/
+func (client *Client) PostSpotCancelOrders(instrumentId, orderOrClientId string) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+
+	uri := strings.Replace(SPOT_CANCEL_ORDERS_BY_ID, "{order_client_id}", orderOrClientId, -1)
+	options := NewParams()
+	options["instrument_id"] = instrumentId
+
+	if _, err := client.Request(POST, uri, options, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
