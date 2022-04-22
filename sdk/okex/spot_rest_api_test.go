@@ -7,4 +7,10 @@ import (
 )
 
 func TestGetSpotAccounts(t *testing.T) {
-	c := NewTestCli
+	c := NewTestClient()
+	ac, err := c.GetSpotAccounts()
+
+	fmt.Printf("%+v, %+v", ac, err)
+
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonStr
