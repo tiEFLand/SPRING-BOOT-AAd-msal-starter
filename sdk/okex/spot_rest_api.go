@@ -370,3 +370,21 @@ func (client *Client) PostSpotCancelOrders(instrumentId, orderOrClientId string)
 		return nil, err
 	}
 	return &r, nil
+
+}
+
+/*
+批量撤销订单
+撤销指定的某一种或多种币对的所有未完成订单，每个币对可批量撤10个单。
+
+限速规则：50次/2s
+HTTP请求
+POST /api/spot/v3/cancel_batch_orders
+*/
+func (client *Client) PostSpotCancelBatchOrders(orderInfos *[]map[string]interface{}) (*map[string]interface{}, error) {
+	r := map[string]interface{}{}
+	if _, err := client.Request(POST, SPOT_CANCEL_BATCH_ORDERS, orderInfos, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
