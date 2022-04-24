@@ -26,4 +26,10 @@ func TestGetSpotAccountsCurrency(t *testing.T) {
 }
 
 func TestGetSpotAccountsCurrencyLeger(t *testing.T) {
-	c :=
+	c := NewTestClient()
+	ac, err := c.GetSpotAccountsCurrencyLeger("btc", nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	optio
