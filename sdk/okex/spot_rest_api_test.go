@@ -32,4 +32,9 @@ func TestGetSpotAccountsCurrencyLeger(t *testing.T) {
 	jstr, _ := Struct2JsonString(ac)
 	println(jstr)
 
-	optio
+	options := map[string]string{}
+	options["from"] = "1"
+	options["to"] = "2"
+	options["limit"] = "100"
+
+	ac2, err2 := c.GetSpotAccountsCurren
