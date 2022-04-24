@@ -37,4 +37,10 @@ func TestGetSpotAccountsCurrencyLeger(t *testing.T) {
 	options["to"] = "2"
 	options["limit"] = "100"
 
-	ac2, err2 := c.GetSpotAccountsCurren
+	ac2, err2 := c.GetSpotAccountsCurrencyLeger("btc", &options)
+	assert.True(t, ac2 != nil && err2 == nil)
+}
+
+func TestGetSpotOrders(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetSpo
