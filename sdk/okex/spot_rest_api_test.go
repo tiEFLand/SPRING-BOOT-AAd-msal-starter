@@ -19,4 +19,11 @@ func TestGetSpotAccounts(t *testing.T) {
 
 func TestGetSpotAccountsCurrency(t *testing.T) {
 	c := NewTestClient()
-	ac, err := c.GetSpotAccountsCurrency("BT
+	ac, err := c.GetSpotAccountsCurrency("BTC")
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetSpotAccountsCurrencyLeger(t *testing.T) {
+	c :=
