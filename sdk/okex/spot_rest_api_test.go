@@ -43,4 +43,9 @@ func TestGetSpotAccountsCurrencyLeger(t *testing.T) {
 
 func TestGetSpotOrders(t *testing.T) {
 	c := NewTestClient()
-	ac, err := c.GetSpo
+	ac, err := c.GetSpotOrders("filled", "BTC-USDT", nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	// Fore.
