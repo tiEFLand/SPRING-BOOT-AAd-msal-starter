@@ -52,4 +52,9 @@ func TestGetSpotOrders(t *testing.T) {
 	// Url: http://coinmainweb.new.docker.okex.com/api/spot/v3/fills?instrument_id=BTC-USDT&order_id=2365709152770048
 	filledOrderId := (*ac)[0]["order_id"].(string)
 	sf, err := c.GetSpotFills(filledOrderId, "BTC-USDT", nil)
-	as
+	assert.True(t, sf != nil && err == nil)
+}
+
+func TestGetSpotOrdersPending(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetSpotOrde
