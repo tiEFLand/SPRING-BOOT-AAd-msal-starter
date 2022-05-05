@@ -48,4 +48,5 @@ func TestGetSpotOrders(t *testing.T) {
 	jstr, _ := Struct2JsonString(ac)
 	println(jstr)
 
-	// Fore.
+	// Fore. 20190305. TODO: {"message":"System error"} returned by following request.
+	// Url: http://coinmainweb.new.docker.okex.com/api/spot/v3/fills?instrument_id=
