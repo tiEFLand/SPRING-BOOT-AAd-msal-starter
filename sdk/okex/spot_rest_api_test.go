@@ -49,4 +49,7 @@ func TestGetSpotOrders(t *testing.T) {
 	println(jstr)
 
 	// Fore. 20190305. TODO: {"message":"System error"} returned by following request.
-	// Url: http://coinmainweb.new.docker.okex.com/api/spot/v3/fills?instrument_id=
+	// Url: http://coinmainweb.new.docker.okex.com/api/spot/v3/fills?instrument_id=BTC-USDT&order_id=2365709152770048
+	filledOrderId := (*ac)[0]["order_id"].(string)
+	sf, err := c.GetSpotFills(filledOrderId, "BTC-USDT", nil)
+	as
