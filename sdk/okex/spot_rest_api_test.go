@@ -57,4 +57,10 @@ func TestGetSpotOrders(t *testing.T) {
 
 func TestGetSpotOrdersPending(t *testing.T) {
 	c := NewTestClient()
-	ac, err := c.GetSpotOrde
+	ac, err := c.GetSpotOrdersPending(nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	options := NewParams()
+	options["instrument_id"] = "B
