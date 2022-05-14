@@ -63,4 +63,10 @@ func TestGetSpotOrdersPending(t *testing.T) {
 	println(jstr)
 
 	options := NewParams()
-	options["instrument_id"] = "B
+	options["instrument_id"] = "BTC-USDT"
+	ac, err = c.GetSpotOrdersPending(&options)
+	assert.True(t, err == nil)
+	jstr, _ = Struct2JsonString(ac)
+	println(jstr)
+
+	testOrde
