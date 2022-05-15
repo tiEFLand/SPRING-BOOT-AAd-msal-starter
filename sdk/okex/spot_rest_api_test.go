@@ -69,4 +69,6 @@ func TestGetSpotOrdersPending(t *testing.T) {
 	jstr, _ = Struct2JsonString(ac)
 	println(jstr)
 
-	testOrde
+	testOrderId := (*ac)[0]["order_id"]
+	so, err := c.GetSpotOrdersById("BTC-USDT", testOrderId.(string))
+	assert.True(t, so != nil
