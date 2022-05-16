@@ -71,4 +71,10 @@ func TestGetSpotOrdersPending(t *testing.T) {
 
 	testOrderId := (*ac)[0]["order_id"]
 	so, err := c.GetSpotOrdersById("BTC-USDT", testOrderId.(string))
-	assert.True(t, so != nil
+	assert.True(t, so != nil && err == nil)
+}
+
+func TestGetSpotInstruments(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetSpotInstruments()
+	assert.True(t, err == ni
