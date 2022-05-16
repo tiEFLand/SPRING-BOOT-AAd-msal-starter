@@ -77,4 +77,11 @@ func TestGetSpotOrdersPending(t *testing.T) {
 func TestGetSpotInstruments(t *testing.T) {
 	c := NewTestClient()
 	ac, err := c.GetSpotInstruments()
-	assert.True(t, err == ni
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetSpotInstrumentBook(t *testing.T) {
+	c := NewTestClient()
+	ac, err := 
