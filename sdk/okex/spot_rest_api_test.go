@@ -84,4 +84,10 @@ func TestGetSpotInstruments(t *testing.T) {
 
 func TestGetSpotInstrumentBook(t *testing.T) {
 	c := NewTestClient()
-	ac, err := 
+	ac, err := c.GetSpotInstrumentBook("LTC-USDT", nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestGetSpotInstrumentsTicker(t *te
