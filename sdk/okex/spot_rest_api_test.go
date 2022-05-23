@@ -90,4 +90,9 @@ func TestGetSpotInstrumentBook(t *testing.T) {
 	println(jstr)
 }
 
-func TestGetSpotInstrumentsTicker(t *te
+func TestGetSpotInstrumentsTicker(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetSpotInstrumentsTicker()
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	pr
