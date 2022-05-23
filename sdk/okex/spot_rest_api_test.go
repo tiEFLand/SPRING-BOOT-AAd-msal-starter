@@ -95,4 +95,10 @@ func TestGetSpotInstrumentsTicker(t *testing.T) {
 	ac, err := c.GetSpotInstrumentsTicker()
 	assert.True(t, err == nil)
 	jstr, _ := Struct2JsonString(ac)
-	pr
+	println(jstr)
+}
+
+func TestGetSpotInstrumentTicker(t *testing.T) {
+	c := NewTestClient()
+	ac, err := c.GetSpotInstrumentTicker("LTC-USDT")
+	assert.T
