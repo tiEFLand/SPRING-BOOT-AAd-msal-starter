@@ -107,4 +107,10 @@ func TestGetSpotInstrumentTicker(t *testing.T) {
 }
 
 func TestGetSpotInstrumentTrade(t *testing.T) {
-	c := NewTestCli
+	c := NewTestClient()
+	ac, err := c.GetSpotInstrumentTrade("BTC-USDT", nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+
+	options :
