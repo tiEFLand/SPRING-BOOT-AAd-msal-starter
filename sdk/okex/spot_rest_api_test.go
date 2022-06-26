@@ -113,4 +113,10 @@ func TestGetSpotInstrumentTrade(t *testing.T) {
 	jstr, _ := Struct2JsonString(ac)
 	println(jstr)
 
-	options :
+	options := map[string]string{}
+	options["from"] = "1"
+	options["to"] = "2"
+	options["limit"] = "100"
+
+	ac2, err := c.GetSpotInstrumentTrade("BTC-USDT", &options)
+	asser
