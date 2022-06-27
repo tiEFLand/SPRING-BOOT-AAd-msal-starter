@@ -128,4 +128,13 @@ func TestGetSpotInstrumentCandles(t *testing.T) {
 	c := NewTestClient()
 	ac, err := c.GetSpotInstrumentCandles("BTC-USDT", nil)
 	assert.True(t, err == nil)
-	jstr, _ := Struct2JsonString(
+	jstr, _ := Struct2JsonString(ac)
+	println(jstr)
+}
+
+func TestPostSpotOrders(t *testing.T) {
+	c := NewTestClient()
+
+	optionals := NewParams()
+	optionals["type"] = "limit"
+	optional
