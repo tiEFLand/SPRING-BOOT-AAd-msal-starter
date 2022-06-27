@@ -125,4 +125,7 @@ func TestGetSpotInstrumentTrade(t *testing.T) {
 }
 
 func TestGetSpotInstrumentCandles(t *testing.T) {
-	c := NewTestClie
+	c := NewTestClient()
+	ac, err := c.GetSpotInstrumentCandles("BTC-USDT", nil)
+	assert.True(t, err == nil)
+	jstr, _ := Struct2JsonString(
