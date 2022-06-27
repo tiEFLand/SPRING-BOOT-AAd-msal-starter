@@ -119,4 +119,10 @@ func TestGetSpotInstrumentTrade(t *testing.T) {
 	options["limit"] = "100"
 
 	ac2, err := c.GetSpotInstrumentTrade("BTC-USDT", &options)
-	asser
+	assert.True(t, err == nil)
+	jstr, _ = Struct2JsonString(ac2)
+	println(jstr)
+}
+
+func TestGetSpotInstrumentCandles(t *testing.T) {
+	c := NewTestClie
