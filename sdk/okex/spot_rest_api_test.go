@@ -147,4 +147,13 @@ func TestPostSpotOrders(t *testing.T) {
 
 	orderId := (*r)["order_id"].(string)
 	r, err = c.PostSpotCancelOrders("btc-usdt", orderId)
-	as
+	assert.True(t, r != nil && err == nil)
+	jstr, _ = Struct2JsonString(r)
+	println(jstr)
+
+}
+
+func TestClient_PostSpotBatchOrders(t *testing.T) {
+	c := NewTestClient()
+
+	order
