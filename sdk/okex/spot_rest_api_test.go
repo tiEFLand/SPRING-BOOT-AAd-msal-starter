@@ -142,3 +142,9 @@ func TestPostSpotOrders(t *testing.T) {
 
 	r, err := c.PostSpotOrders("sell", "btc-usdt", &optionals)
 	assert.True(t, r != nil && err == nil)
+	jstr, _ := Struct2JsonString(r)
+	println(jstr)
+
+	orderId := (*r)["order_id"].(string)
+	r, err = c.PostSpotCancelOrders("btc-usdt", orderId)
+	as
