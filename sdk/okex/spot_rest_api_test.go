@@ -137,4 +137,8 @@ func TestPostSpotOrders(t *testing.T) {
 
 	optionals := NewParams()
 	optionals["type"] = "limit"
-	optional
+	optionals["price"] = "100"
+	optionals["size"] = "0.01"
+
+	r, err := c.PostSpotOrders("sell", "btc-usdt", &optionals)
+	assert.True(t, r != nil && err == nil)
