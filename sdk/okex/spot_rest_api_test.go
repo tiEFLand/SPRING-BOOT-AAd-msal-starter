@@ -156,4 +156,5 @@ func TestPostSpotOrders(t *testing.T) {
 func TestClient_PostSpotBatchOrders(t *testing.T) {
 	c := NewTestClient()
 
-	order
+	orderInfos := []map[string]string{
+		map[string]string{"client_oid": "w20180728w", "instrument_id": "btc-usdt", "side": "sell", "type": "limit", "si
