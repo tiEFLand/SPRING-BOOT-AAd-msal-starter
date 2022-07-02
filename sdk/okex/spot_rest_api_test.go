@@ -161,4 +161,10 @@ func TestClient_PostSpotBatchOrders(t *testing.T) {
 		map[string]string{"client_oid": "r20180728r", "instrument_id": "btc-usdt", "side": "sell", "type": "limit", " size ": "0.001", "notional": "10002", "margin_trading ": "1"},
 	}
 
-	r, err := c.PostSp
+	r, err := c.PostSpotBatchOrders(&orderInfos)
+	assert.True(t, r != nil && err == nil)
+	jstr, _ := Struct2JsonString(r)
+	println(jstr)
+}
+
+func TestClient_PostSpotCancelB
