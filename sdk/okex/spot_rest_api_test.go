@@ -175,4 +175,8 @@ func TestClient_PostSpotCancelBatchOrders(t *testing.T) {
 		map[string]interface{}{"instrument_id": "ltc-usdt", "client_oid": "243464oo234465"},
 	}
 
-	r, err := c.Pos
+	r, err := c.PostSpotCancelBatchOrders(&orderInfos)
+	assert.True(t, r != nil && err == nil)
+	jstr, _ := Struct2JsonString(r)
+	println(jstr)
+}
