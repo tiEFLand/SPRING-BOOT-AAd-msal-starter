@@ -167,4 +167,8 @@ func TestClient_PostSpotBatchOrders(t *testing.T) {
 	println(jstr)
 }
 
-func TestClient_PostSpotCancelB
+func TestClient_PostSpotCancelBatchOrders(t *testing.T) {
+	c := NewTestClient()
+
+	orderInfos := []map[string]interface{}{
+		map[string]interface{}{"instrument_id": "btc-usd
