@@ -12,3 +12,7 @@ type SpotGetOrderResult struct {
 	Timestamp      string  `json:"timestamp"`
 	FilledSize     float64 `json:"filled_size,string"`
 	FilledNotional float64 `json:"filled_notional,string"`
+	OrderType      string  `json:"order_type"`
+	State          int     `json:"state,string"`
+	PriceAvg       float64 `json:"price_avg,string"`
+}
