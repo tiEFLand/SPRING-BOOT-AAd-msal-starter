@@ -171,4 +171,8 @@ func TestClient_PostSpotCancelBatchOrders(t *testing.T) {
 	c := NewTestClient()
 
 	orderInfos := []map[string]interface{}{
-		map[string]interface{}{"instrument_id": "btc-usd
+		map[string]interface{}{"instrument_id": "btc-usdt", "client_oid": "16ee593327162368"},
+		map[string]interface{}{"instrument_id": "ltc-usdt", "client_oid": "243464oo234465"},
+	}
+
+	r, err := c.Pos
