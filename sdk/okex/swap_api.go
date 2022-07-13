@@ -10,3 +10,10 @@ package okex
 import (
 	"errors"
 	"strings"
+)
+
+/*
+获取某个合约的持仓信息
+GET /api/swap/v3/<instrument_id>/position
+*/
+func (client *Client) GetSwapPositionByInstrument(instrumentId str
