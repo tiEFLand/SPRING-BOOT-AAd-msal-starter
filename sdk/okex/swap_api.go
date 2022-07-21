@@ -19,4 +19,15 @@ GET /api/swap/v3/<instrument_id>/position
 func (client *Client) GetSwapPositionByInstrument(instrumentId string) (*SwapPosition, error) {
 
 	sp := SwapPosition{}
-	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_POSITION, instrumen
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_POSITION, instrumentId), nil, &sp); err != nil {
+		return nil, err
+	}
+	return &sp, nil
+}
+
+/*
+所有合约持仓信息
+获取所有合约的持仓信息
+限速规则：1次/10s
+GET /api/swap/v3/position
+*
