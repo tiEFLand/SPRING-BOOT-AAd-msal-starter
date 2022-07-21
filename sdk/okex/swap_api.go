@@ -30,4 +30,8 @@ func (client *Client) GetSwapPositionByInstrument(instrumentId string) (*SwapPos
 获取所有合约的持仓信息
 限速规则：1次/10s
 GET /api/swap/v3/position
-*
+*/
+func (client *Client) GetSwapPositions() (*SwapPositionList, error) {
+
+	sp := SwapPositionList{}
+	if _, err := client.Request(GET, SWAP_POSITI
