@@ -42,3 +42,15 @@ func (client *Client) GetSwapPositions() (*SwapPositionList, error) {
 
 func (client *Client) getSwapAccounts(uri string) (*SwapAccounts, error) {
 	sa := SwapAccounts{}
+	if _, err := client.Request(GET, uri, nil, &sa); err != nil {
+		return nil, err
+	}
+	return &sa, nil
+}
+
+/*
+获取所有币种合约的账户信息
+HTTP请求
+GET /api/swap/v3/accounts
+*/
+func (cli
