@@ -53,4 +53,11 @@ func (client *Client) getSwapAccounts(uri string) (*SwapAccounts, error) {
 HTTP请求
 GET /api/swap/v3/accounts
 */
-func (cli
+func (client *Client) GetSwapAccounts() (*SwapAccounts, error) {
+	return client.getSwapAccounts(SWAP_ACCOUNTS)
+}
+
+/*
+单个币种合约账户信息
+HTTP请求
+GET /api/swap/v3/<in
