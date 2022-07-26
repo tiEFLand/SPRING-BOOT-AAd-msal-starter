@@ -34,4 +34,11 @@ GET /api/swap/v3/position
 func (client *Client) GetSwapPositions() (*SwapPositionList, error) {
 
 	sp := SwapPositionList{}
-	if _, err := client.Request(GET, SWAP_POSITI
+	if _, err := client.Request(GET, SWAP_POSITION, nil, &sp); err != nil {
+		return nil, err
+	}
+	return &sp, nil
+}
+
+func (client *Client) getSwapAccounts(uri string) (*SwapAccounts, error) {
+	sa := SwapAccounts{}
