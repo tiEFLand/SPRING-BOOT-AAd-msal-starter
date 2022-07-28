@@ -65,4 +65,12 @@ GET /api/swap/v3/<instrument_id>/accounts
 func (client *Client) GetSwapAccount(instrumentId string) (*SwapAccount, error) {
 
 	sa := SwapAccount{}
-	uri := GetInstrumentIdUri(SWAP_INSTRUMENT_ACCOUNT
+	uri := GetInstrumentIdUri(SWAP_INSTRUMENT_ACCOUNT, instrumentId)
+	if _, err := client.Request(GET, uri, nil, &sa); err != nil {
+		return nil, err
+	}
+	return &sa, nil
+}
+
+/*
+获取某个合约的杠杆倍数，持仓模式
