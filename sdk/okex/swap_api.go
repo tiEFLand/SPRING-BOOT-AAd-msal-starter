@@ -60,4 +60,9 @@ func (client *Client) GetSwapAccounts() (*SwapAccounts, error) {
 /*
 单个币种合约账户信息
 HTTP请求
-GET /api/swap/v3/<in
+GET /api/swap/v3/<instrument_id>/accounts
+*/
+func (client *Client) GetSwapAccount(instrumentId string) (*SwapAccount, error) {
+
+	sa := SwapAccount{}
+	uri := GetInstrumentIdUri(SWAP_INSTRUMENT_ACCOUNT
