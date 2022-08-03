@@ -74,3 +74,8 @@ func (client *Client) GetSwapAccount(instrumentId string) (*SwapAccount, error) 
 
 /*
 获取某个合约的杠杆倍数，持仓模式
+
+HTTP请求
+GET /api/swap/v3/accounts/<instrument_id>/settings
+*/
+func (client *Client) GetSwapAccountsSettingsByInstrument(instrumentId string) (*SwapAccountsSetti
