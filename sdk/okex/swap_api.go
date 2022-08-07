@@ -78,4 +78,6 @@ func (client *Client) GetSwapAccount(instrumentId string) (*SwapAccount, error) 
 HTTP请求
 GET /api/swap/v3/accounts/<instrument_id>/settings
 */
-func (client *Client) GetSwapAccountsSettingsByInstrument(instrumentId string) (*SwapAccountsSetti
+func (client *Client) GetSwapAccountsSettingsByInstrument(instrumentId string) (*SwapAccountsSetting, error) {
+	as := SwapAccountsSetting{}
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_ACCOUNTS_SETTINGS, instrumentId),
