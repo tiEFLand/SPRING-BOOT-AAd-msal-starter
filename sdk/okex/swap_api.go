@@ -80,4 +80,15 @@ GET /api/swap/v3/accounts/<instrument_id>/settings
 */
 func (client *Client) GetSwapAccountsSettingsByInstrument(instrumentId string) (*SwapAccountsSetting, error) {
 	as := SwapAccountsSetting{}
-	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_ACCOUNTS_SETTINGS, instrumentId),
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_ACCOUNTS_SETTINGS, instrumentId), nil, &as); err != nil {
+		return nil, err
+	}
+	return &as, nil
+}
+
+/*
+设定某个合约的杠杆倍数
+
+HTTP请求
+POST /api/swap/v3/accounts/<instrument_id>/leverage
+*/
