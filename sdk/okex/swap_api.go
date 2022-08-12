@@ -92,4 +92,9 @@ func (client *Client) GetSwapAccountsSettingsByInstrument(instrumentId string) (
 HTTP请求
 POST /api/swap/v3/accounts/<instrument_id>/leverage
 */
-func (client *Client) PostSwapAccountsLeverage(instrumentId string, leverage string, side string) (*SwapAccountsSetting, er
+func (client *Client) PostSwapAccountsLeverage(instrumentId string, leverage string, side string) (*SwapAccountsSetting, error) {
+	params := make(map[string]string)
+	params["leverage"] = leverage
+	params["side"] = side
+	as := SwapAccountsSetting{}
+	if _, err := clien
