@@ -97,4 +97,8 @@ func (client *Client) PostSwapAccountsLeverage(instrumentId string, leverage str
 	params["leverage"] = leverage
 	params["side"] = side
 	as := SwapAccountsSetting{}
-	if _, err := clien
+	if _, err := client.Request(POST, GetInstrumentIdUri(SWAP_ACCOUNTS_LEVERAGE, instrumentId), params, &as); err != nil {
+		return nil, err
+	}
+	return &as, nil
+}
