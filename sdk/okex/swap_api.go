@@ -102,3 +102,10 @@ func (client *Client) PostSwapAccountsLeverage(instrumentId string, leverage str
 	}
 	return &as, nil
 }
+
+/*
+账单流水查询
+列出账户资产流水，账户资产流水是指导致账户余额增加或减少的行为。流水会分页，每页100条数据，并且按照时间倒序排序和存储，最新的排在最前面。
+
+HTTP请求
+GET /api/swap/v3/accounts/<instrum
