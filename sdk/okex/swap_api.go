@@ -110,4 +110,8 @@ func (client *Client) PostSwapAccountsLeverage(instrumentId string, leverage str
 HTTP请求
 GET /api/swap/v3/accounts/<instrument_id>/ledger
 */
-func (client *Client) GetSwapAccountLedger(instrumentId string, optionalParams map[string]string) (*SwapAccountsLedgerList
+func (client *Client) GetSwapAccountLedger(instrumentId string, optionalParams map[string]string) (*SwapAccountsLedgerList, error) {
+	baseUri := GetInstrumentIdUri(SWAP_ACCOUNTS_LEDGER, instrumentId)
+	uri := baseUri
+	if optionalParams != nil {
+		uri = BuildParams(baseUri,
