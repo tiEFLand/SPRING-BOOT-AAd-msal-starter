@@ -114,4 +114,14 @@ func (client *Client) GetSwapAccountLedger(instrumentId string, optionalParams m
 	baseUri := GetInstrumentIdUri(SWAP_ACCOUNTS_LEDGER, instrumentId)
 	uri := baseUri
 	if optionalParams != nil {
-		uri = BuildParams(baseUri,
+		uri = BuildParams(baseUri, optionalParams)
+	}
+	ll := SwapAccountsLedgerList{}
+	if _, err := client.Request(GET, uri, nil, &ll); err != nil {
+		return nil, err
+	}
+	return &ll, nil
+}
+
+/*
+API交
