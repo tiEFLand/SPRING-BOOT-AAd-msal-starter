@@ -124,4 +124,9 @@ func (client *Client) GetSwapAccountLedger(instrumentId string, optionalParams m
 }
 
 /*
-API交
+API交易提供限价单下单模式，只有当您的账户有足够的资金才能下单。一旦下单，您的账户资金将在订单生命周期内被冻结，被冻结的资金以及数量取决于订单指定的类型和参数。
+
+HTTP请求
+POST /api/swap/v3/order
+*/
+func (client 
