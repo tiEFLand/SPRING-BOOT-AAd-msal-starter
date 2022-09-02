@@ -129,4 +129,6 @@ API交易提供限价单下单模式，只有当您的账户有足够的资金�
 HTTP请求
 POST /api/swap/v3/order
 */
-func (client 
+func (client *Client) PostSwapOrder(instrumentId string, order *BasePlaceOrderInfo) (*SwapOrderResult, error) {
+	or := SwapOrderResult{}
+	info := Pla
