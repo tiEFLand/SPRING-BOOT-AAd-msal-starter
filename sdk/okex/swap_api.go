@@ -131,4 +131,8 @@ POST /api/swap/v3/order
 */
 func (client *Client) PostSwapOrder(instrumentId string, order *BasePlaceOrderInfo) (*SwapOrderResult, error) {
 	or := SwapOrderResult{}
-	info := Pla
+	info := PlaceOrderInfo{*order, instrumentId}
+	if _, err := client.Request(POST, SWAP_ORDER, info, &or); err != nil {
+		return nil, err
+	}
+	return 
