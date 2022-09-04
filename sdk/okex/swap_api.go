@@ -135,4 +135,13 @@ func (client *Client) PostSwapOrder(instrumentId string, order *BasePlaceOrderIn
 	if _, err := client.Request(POST, SWAP_ORDER, info, &or); err != nil {
 		return nil, err
 	}
-	return 
+	return &or, nil
+}
+
+/*
+批量进行下单请求。
+
+HTTP请求
+POST /api/swap/v3/orders
+*/
+func (client *Client) PostSwapOrders(instrumentId string, orders []*BasePlac
