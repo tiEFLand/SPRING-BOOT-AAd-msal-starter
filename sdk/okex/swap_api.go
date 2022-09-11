@@ -144,4 +144,7 @@ func (client *Client) PostSwapOrder(instrumentId string, order *BasePlaceOrderIn
 HTTP请求
 POST /api/swap/v3/orders
 */
-func (client *Client) PostSwapOrders(instrumentId string, orders []*BasePlac
+func (client *Client) PostSwapOrders(instrumentId string, orders []*BasePlaceOrderInfo) (*SwapOrdersResult, error) {
+	sor := SwapOrdersResult{}
+	orderData := PlaceOrdersInfo{InstrumentId: instrumentId, OrderData: orders}
+	if _, err := client.Request(POST
