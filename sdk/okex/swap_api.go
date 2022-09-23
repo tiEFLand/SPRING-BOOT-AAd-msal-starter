@@ -147,4 +147,14 @@ POST /api/swap/v3/orders
 func (client *Client) PostSwapOrders(instrumentId string, orders []*BasePlaceOrderInfo) (*SwapOrdersResult, error) {
 	sor := SwapOrdersResult{}
 	orderData := PlaceOrdersInfo{InstrumentId: instrumentId, OrderData: orders}
-	if _, err := client.Request(POST
+	if _, err := client.Request(POST, SWAP_ORDERS, orderData, &sor); err != nil {
+		return nil, err
+	}
+	return &sor, nil
+}
+
+/*
+撤销之前下的未完成订单。
+
+HTTP请求
+POST /api/swap/v3/cancel_order/<instrument
