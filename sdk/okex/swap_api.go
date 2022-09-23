@@ -157,4 +157,7 @@ func (client *Client) PostSwapOrders(instrumentId string, orders []*BasePlaceOrd
 撤销之前下的未完成订单。
 
 HTTP请求
-POST /api/swap/v3/cancel_order/<instrument
+POST /api/swap/v3/cancel_order/<instrument_id>/<order_id>
+*/
+func (client *Client) PostSwapCancelOrder(instrumentId string, orderId string) (*SwapCancelOrderResult, error) {
+	uri := "
