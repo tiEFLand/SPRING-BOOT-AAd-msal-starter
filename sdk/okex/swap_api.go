@@ -160,4 +160,7 @@ HTTP请求
 POST /api/swap/v3/cancel_order/<instrument_id>/<order_id>
 */
 func (client *Client) PostSwapCancelOrder(instrumentId string, orderId string) (*SwapCancelOrderResult, error) {
-	uri := "
+	uri := "/api/swap/v3/cancel_order/" + instrumentId + "/" + orderId
+	or := SwapCancelOrderResult{}
+	if _, err := client.Request(POST, uri, nil, &or); err != nil {
+		
