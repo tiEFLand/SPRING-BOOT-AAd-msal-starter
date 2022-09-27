@@ -163,4 +163,16 @@ func (client *Client) PostSwapCancelOrder(instrumentId string, orderId string) (
 	uri := "/api/swap/v3/cancel_order/" + instrumentId + "/" + orderId
 	or := SwapCancelOrderResult{}
 	if _, err := client.Request(POST, uri, nil, &or); err != nil {
-		
+		return nil, err
+	}
+	return &or, nil
+
+}
+
+/*
+批量撤销之前下的未完成订单。
+
+HTTP请求
+POST /api/swap/v3/cancel_batch_orders/<instrument_id>
+*/
+func (client *Client) Po
