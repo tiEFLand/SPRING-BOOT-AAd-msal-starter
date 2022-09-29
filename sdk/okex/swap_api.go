@@ -175,4 +175,5 @@ func (client *Client) PostSwapCancelOrder(instrumentId string, orderId string) (
 HTTP请求
 POST /api/swap/v3/cancel_batch_orders/<instrument_id>
 */
-func (client *Client) Po
+func (client *Client) PostSwapBatchCancelOrders(instrumentId string, orderIds []string) (*SwapCancelOrderResult, error) {
+	uri := GetInstrumentIdUri(SWAP_
