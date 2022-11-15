@@ -182,4 +182,14 @@ func (client *Client) PostSwapBatchCancelOrders(instrumentId string, orderIds []
 	params := map[string]interface{}{}
 	params["ids"] = orderIds
 
-	if _, err
+	if _, err := client.Request(POST, uri, params, &or); err != nil {
+		return nil, err
+	}
+	return &or, nil
+}
+
+/*
+列出您当前所有的订单信息。
+
+HTTP请求
+GET /api/swap/v3
