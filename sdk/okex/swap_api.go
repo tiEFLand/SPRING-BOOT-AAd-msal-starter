@@ -192,4 +192,9 @@ func (client *Client) PostSwapBatchCancelOrders(instrumentId string, orderIds []
 列出您当前所有的订单信息。
 
 HTTP请求
-GET /api/swap/v3
+GET /api/swap/v3/orders/<instrument_id>
+
+请求示例
+GET /api/swap/v3/orders/BTC-USD-SWAP?status=2&from=4&limit=30
+*/
+func (client *Client) GetSwapOrderByInstrumentId(in
