@@ -197,4 +197,6 @@ GET /api/swap/v3/orders/<instrument_id>
 请求示例
 GET /api/swap/v3/orders/BTC-USD-SWAP?status=2&from=4&limit=30
 */
-func (client *Client) GetSwapOrderByInstrumentId(in
+func (client *Client) GetSwapOrderByInstrumentId(instrumentId string, paramMap map[string]string) (*SwapOrdersInfo, error) {
+	if paramMap["status"] == "" || len(instrumentId) == 0 {
+		ret
