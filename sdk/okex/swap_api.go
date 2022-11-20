@@ -202,4 +202,9 @@ func (client *Client) GetSwapOrderByInstrumentId(instrumentId string, paramMap m
 		return nil, errors.New("Request Parameter's not correct, instrument_id and status is required.")
 	}
 
-	baseUri := GetInstrumentIdUri(SWAP_INSTRUM
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_ORDER_LIST, instrumentId)
+	kvParams := BuildOrderParams(paramMap)
+	uri := baseUri + "?" + kvParams
+	soi := SwapOrdersInfo{}
+
+	if _,
