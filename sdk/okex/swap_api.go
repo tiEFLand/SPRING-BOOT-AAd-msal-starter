@@ -207,4 +207,14 @@ func (client *Client) GetSwapOrderByInstrumentId(instrumentId string, paramMap m
 	uri := baseUri + "?" + kvParams
 	soi := SwapOrdersInfo{}
 
-	if _,
+	if _, err := client.Request(GET, uri, nil, &soi); err != nil {
+		return nil, err
+	}
+	return &soi, nil
+}
+
+/*
+通过订单id获取单个订单信息。
+
+HTTP请求
+GET 
