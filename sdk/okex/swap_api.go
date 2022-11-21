@@ -217,4 +217,9 @@ func (client *Client) GetSwapOrderByInstrumentId(instrumentId string, paramMap m
 通过订单id获取单个订单信息。
 
 HTTP请求
-GET 
+GET /api/swap/v3/orders/<instrument_id>/<order_id>
+
+请求示例
+GET /api/swap/v3/orders/BTC-USD-SWAP/64-2a-26132f931-3
+*/
+func (client *Client) GetSwapOrd
