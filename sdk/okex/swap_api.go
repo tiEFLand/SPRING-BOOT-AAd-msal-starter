@@ -228,3 +228,11 @@ func (client *Client) GetSwapOrderByOrderId(instrumentId string, orderId string)
 
 /*
 获取订单信息
+通过订单id获取单个订单信息。
+
+限速规则：40次/2s
+HTTP请求
+GET /api/swap/v3/orders/<instrument_id>/<order_id>
+or
+GET /api/swap/v3/orders/<instrument_id>/<client_oid>
+*/
