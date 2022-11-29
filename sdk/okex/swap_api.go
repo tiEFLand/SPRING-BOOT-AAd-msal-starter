@@ -222,4 +222,9 @@ GET /api/swap/v3/orders/<instrument_id>/<order_id>
 请求示例
 GET /api/swap/v3/orders/BTC-USD-SWAP/64-2a-26132f931-3
 */
-func (client *Client) GetSwapOrd
+func (client *Client) GetSwapOrderByOrderId(instrumentId string, orderId string) (*BaseOrderInfo, error) {
+	return client.GetSwapOrderById(instrumentId, orderId)
+}
+
+/*
+获取订单信息
