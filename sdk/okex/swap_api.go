@@ -239,4 +239,5 @@ GET /api/swap/v3/orders/<instrument_id>/<client_oid>
 func (client *Client) GetSwapOrderById(instrumentId, orderOrClientId string) (*BaseOrderInfo, error) {
 
 	orderInfo := BaseOrderInfo{}
-	
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_ORDER_BY_ID, instrumentId)
+	uri := strings.Replace(baseUri, "{order_client_id}
