@@ -240,4 +240,10 @@ func (client *Client) GetSwapOrderById(instrumentId, orderOrClientId string) (*B
 
 	orderInfo := BaseOrderInfo{}
 	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_ORDER_BY_ID, instrumentId)
-	uri := strings.Replace(baseUri, "{order_client_id}
+	uri := strings.Replace(baseUri, "{order_client_id}", orderOrClientId, -1)
+
+	if _, err := client.Request(GET, uri, nil, &orderInfo); err != nil {
+		return nil, err
+	}
+
+	return &orderInfo, nil
