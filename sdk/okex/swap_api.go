@@ -256,4 +256,6 @@ HTTP请求
 GET /api/swap/v3/fills
 
 请求示例
-GET /api/swap/v3/fills?order_id=64-2b-16122f931-3&instrument_
+GET /api/swap/v3/fills?order_id=64-2b-16122f931-3&instrument_id=BTC-USD-SWAP&from=1&limit=50(返回BTC-USD-SWAP中order_id为64-2b-16122f931-3的订单中第1页前50笔成交信息)
+*/
+func (client *Client) G
