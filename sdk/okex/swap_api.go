@@ -247,3 +247,13 @@ func (client *Client) GetSwapOrderById(instrumentId, orderOrClientId string) (*B
 	}
 
 	return &orderInfo, nil
+}
+
+/*
+获取最近的成交明细列表。
+
+HTTP请求
+GET /api/swap/v3/fills
+
+请求示例
+GET /api/swap/v3/fills?order_id=64-2b-16122f931-3&instrument_
