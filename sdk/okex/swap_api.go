@@ -267,4 +267,11 @@ func (client *Client) GetSwapFills(instrumentId string, orderId string, options 
 	m["to"] = options["to"]
 	m["limit"] = options["limit"]
 
-	uri := BuildParams(SWAP_FILLS
+	uri := BuildParams(SWAP_FILLS, m)
+	sfi := SwapFillsInfo{}
+
+	if _, err := client.Request(GET, uri, nil, &sfi); err != nil {
+		return nil, err
+	}
+
+	return &sfi, ni
