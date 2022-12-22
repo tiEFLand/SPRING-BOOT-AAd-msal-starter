@@ -260,4 +260,11 @@ GET /api/swap/v3/fills?order_id=64-2b-16122f931-3&instrument_id=BTC-USD-SWAP&fro
 */
 func (client *Client) GetSwapFills(instrumentId string, orderId string, options map[string]string) (interface{}, error) {
 	m := make(map[string]string)
-	m["instrument_id"
+	m["instrument_id"] = instrumentId
+	m["order_id"] = orderId
+
+	m["from"] = options["from"]
+	m["to"] = options["to"]
+	m["limit"] = options["limit"]
+
+	uri := BuildParams(SWAP_FILLS
