@@ -298,4 +298,7 @@ func (client *Client) GetSwapInstruments() (*SwapInstrumentList, error) {
 HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/depth
 
-请
+请求示例
+GET /api/swap/v3/instruments/<instrument_id>/depth?size=50
+*/
+func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, op
