@@ -274,4 +274,13 @@ func (client *Client) GetSwapFills(instrumentId string, orderId string, options 
 		return nil, err
 	}
 
-	return &sfi, ni
+	return &sfi, nil
+}
+
+/*
+获取可用合约的列表，这组公开接口提供了行情数据的快照，无需认证即可调用。 获取可用合约的列表，查询各合约的交易限制和价格步长等信息。
+
+HTTP请求
+GET /api/swap/v3/instruments
+*/
+func (client
