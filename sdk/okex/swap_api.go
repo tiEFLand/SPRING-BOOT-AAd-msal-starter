@@ -283,4 +283,6 @@ func (client *Client) GetSwapFills(instrumentId string, orderId string, options 
 HTTP请求
 GET /api/swap/v3/instruments
 */
-func (client
+func (client *Client) GetSwapInstruments() (*SwapInstrumentList, error) {
+	sil := SwapInstrumentList{}
+	if _, err := client.Request(GET, SWAP_INSTRUMENTS, nil, &sil); err
