@@ -285,4 +285,17 @@ GET /api/swap/v3/instruments
 */
 func (client *Client) GetSwapInstruments() (*SwapInstrumentList, error) {
 	sil := SwapInstrumentList{}
-	if _, err := client.Request(GET, SWAP_INSTRUMENTS, nil, &sil); err
+	if _, err := client.Request(GET, SWAP_INSTRUMENTS, nil, &sil); err != nil {
+		return nil, err
+	}
+
+	return &sil, nil
+}
+
+/*
+获取合约的深度列表。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/depth
+
+请
