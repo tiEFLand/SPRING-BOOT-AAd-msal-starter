@@ -301,4 +301,6 @@ GET /api/swap/v3/instruments/<instrument_id>/depth
 请求示例
 GET /api/swap/v3/instruments/<instrument_id>/depth?size=50
 */
-func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, op
+func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, optionalSize string) (interface{}, error) {
+	sid := SwapInstrumentDepth{}
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_DEPTH, instru
