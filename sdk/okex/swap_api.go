@@ -303,4 +303,10 @@ GET /api/swap/v3/instruments/<instrument_id>/depth?size=50
 */
 func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, optionalSize string) (interface{}, error) {
 	sid := SwapInstrumentDepth{}
-	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_DEPTH, instru
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_DEPTH, instrumentId)
+	if optionalSize != "" {
+		baseUri = baseUri + "?size=" + optionalSize
+	}
+
+	if _, err := client.Request(GET, baseUri, nil, &sid); err != nil {
+		return 
