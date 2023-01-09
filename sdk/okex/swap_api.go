@@ -323,4 +323,15 @@ GET /api/swap/v3/instruments/ticker
 */
 func (client *Client) GetSwapInstrumentsTicker() (*SwapTickerList, error) {
 	stl := SwapTickerList{}
-	if _, err := client.Request(GET, SWAP_INSTRUMENTS_TI
+	if _, err := client.Request(GET, SWAP_INSTRUMENTS_TICKER, nil, &stl); err != nil {
+		return nil, err
+	}
+
+	return &stl, nil
+}
+
+/*
+获取合约的最新成交价、买一价、卖一价和24交易量。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrume
