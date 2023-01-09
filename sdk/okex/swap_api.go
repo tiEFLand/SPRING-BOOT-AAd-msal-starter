@@ -309,4 +309,16 @@ func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, optionalSi
 	}
 
 	if _, err := client.Request(GET, baseUri, nil, &sid); err != nil {
-		return 
+		return nil, err
+	}
+
+	return sid, nil
+}
+
+/*
+获取平台全部合约的最新成交价、买一价、卖一价和24交易量。
+
+HTTP请求
+GET /api/swap/v3/instruments/ticker
+*/
+func (client *Client) G
