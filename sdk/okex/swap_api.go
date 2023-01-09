@@ -321,4 +321,6 @@ func (client *Client) GetSwapDepthByInstrumentId(instrumentId string, optionalSi
 HTTP请求
 GET /api/swap/v3/instruments/ticker
 */
-func (client *Client) G
+func (client *Client) GetSwapInstrumentsTicker() (*SwapTickerList, error) {
+	stl := SwapTickerList{}
+	if _, err := client.Request(GET, SWAP_INSTRUMENTS_TI
