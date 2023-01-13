@@ -354,4 +354,6 @@ HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/trades
 
 请求示例
-GET /
+GET /api/swap/v3/instruments/BTC-USD-SWAP/trades?from=1&limit=50
+*/
+func (client *Client) GetSwapTradesByInstrument(instrumentId string, optionalParams m
