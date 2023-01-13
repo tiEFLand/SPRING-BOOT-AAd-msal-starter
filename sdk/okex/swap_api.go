@@ -334,4 +334,8 @@ func (client *Client) GetSwapInstrumentsTicker() (*SwapTickerList, error) {
 获取合约的最新成交价、买一价、卖一价和24交易量。
 
 HTTP请求
-GET /api/swap/v3/instruments/<instrume
+GET /api/swap/v3/instruments/<instrument_id>/ticker
+*/
+func (client *Client) GetSwapTickerByInstrument(instrumentId string) (*BaseTickerInfo, error) {
+	bti := BaseTickerInfo{}
+	uri := 
