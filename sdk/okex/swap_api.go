@@ -341,3 +341,17 @@ func (client *Client) GetSwapTickerByInstrument(instrumentId string) (*BaseTicke
 	uri := GetInstrumentIdUri(SWAP_INSTRUMENT_TICKER, instrumentId)
 	if _, err := client.Request(GET, uri, nil, &bti); err != nil {
 		return nil, err
+	}
+
+	bti.InstrumentId = instrumentId
+	return &bti, nil
+}
+
+/*
+获取合约的成交记录。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/trades
+
+请求示例
+GET /
