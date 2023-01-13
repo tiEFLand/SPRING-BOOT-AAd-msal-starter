@@ -338,4 +338,6 @@ GET /api/swap/v3/instruments/<instrument_id>/ticker
 */
 func (client *Client) GetSwapTickerByInstrument(instrumentId string) (*BaseTickerInfo, error) {
 	bti := BaseTickerInfo{}
-	uri := 
+	uri := GetInstrumentIdUri(SWAP_INSTRUMENT_TICKER, instrumentId)
+	if _, err := client.Request(GET, uri, nil, &bti); err != nil {
+		return nil, err
