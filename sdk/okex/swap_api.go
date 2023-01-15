@@ -375,4 +375,6 @@ GET /api/swap/v3/instruments/<instrument_id>/candles
 请求示例
 GET /api/swap/v3/instruments/BTC-USD-SWAP/candles?start=2018-10-26T02:31:00.000Z&end=2018-10-26T02:55:00.000Z&granularity=60(查询BTC-USD-SWAP的2018年10月26日02点31分到2018年10月26日02点55分的1分钟K线数据)
 */
-func (client *Client) GetSwapC
+func (client *Client) GetSwapCandlesByInstrument(instrumentId string, optionalParams map[string]string) (*SwapCandleList, error) {
+	scl := SwapCandleList{}
+	baseUri := GetIns
