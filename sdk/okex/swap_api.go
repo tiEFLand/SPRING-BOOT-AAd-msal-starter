@@ -367,4 +367,10 @@ func (client *Client) GetSwapTradesByInstrument(instrumentId string, optionalPar
 }
 
 /*
-获取
+获取合约的K线数据。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/candles
+
+请求示例
+GET /api/swap/v3/instruments/BTC-USD-SWAP/candles?start=2018-10-26T02
