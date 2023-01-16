@@ -377,4 +377,9 @@ GET /api/swap/v3/instruments/BTC-USD-SWAP/candles?start=2018-10-26T02:31:00.000Z
 */
 func (client *Client) GetSwapCandlesByInstrument(instrumentId string, optionalParams map[string]string) (*SwapCandleList, error) {
 	scl := SwapCandleList{}
-	baseUri := GetIns
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_CANDLES, instrumentId)
+	uri := baseUri
+	if len(optionalParams) > 0 {
+		uri = BuildParams(baseUri, optionalParams)
+	}
+	if _, err := client
