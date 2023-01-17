@@ -393,4 +393,9 @@ func (client *Client) GetSwapCandlesByInstrument(instrumentId string, optionalPa
 获取币种指数。
 
 HTTP请求
-GET /api/swap/v3/instruments/<instrument_id>/ind
+GET /api/swap/v3/instruments/<instrument_id>/index
+
+请求示例
+GET /api/swap/v3/instruments/BTC-USD-SWAP/index
+*/
+func (client *Client) GetSwapIndexByInstrument(instrumentId string) (*SwapIndexInfo, error) 
