@@ -382,4 +382,15 @@ func (client *Client) GetSwapCandlesByInstrument(instrumentId string, optionalPa
 	if len(optionalParams) > 0 {
 		uri = BuildParams(baseUri, optionalParams)
 	}
-	if _, err := client
+	if _, err := client.Request(GET, uri, nil, &scl); err != nil {
+		return nil, err
+	}
+	return &scl, nil
+
+}
+
+/*
+获取币种指数。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/ind
