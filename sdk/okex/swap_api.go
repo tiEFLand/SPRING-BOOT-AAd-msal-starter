@@ -401,4 +401,15 @@ GET /api/swap/v3/instruments/BTC-USD-SWAP/index
 func (client *Client) GetSwapIndexByInstrument(instrumentId string) (*SwapIndexInfo, error) {
 	sii := SwapIndexInfo{}
 	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_INDEX, instrumentId), nil, &sii); err != nil {
-		return nil, er
+		return nil, err
+	}
+	return &sii, nil
+}
+
+/*
+获取合约整个平台的总持仓量。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/open_interest
+*/
+func (client *Client) G
