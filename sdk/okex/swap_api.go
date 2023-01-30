@@ -412,4 +412,6 @@ func (client *Client) GetSwapIndexByInstrument(instrumentId string) (*SwapIndexI
 HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/open_interest
 */
-func (client *Client) G
+func (client *Client) GetSwapOpenInterestByInstrument(instrumentId string) (*SwapOpenInterest, error) {
+	sii := SwapOpenInterest{}
+	if _, err := client.Reque
