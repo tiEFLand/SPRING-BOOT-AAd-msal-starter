@@ -398,4 +398,7 @@ GET /api/swap/v3/instruments/<instrument_id>/index
 请求示例
 GET /api/swap/v3/instruments/BTC-USD-SWAP/index
 */
-func (client *Client) GetSwapIndexByInstrument(instrumentId string) (*SwapIndexInfo, error) 
+func (client *Client) GetSwapIndexByInstrument(instrumentId string) (*SwapIndexInfo, error) {
+	sii := SwapIndexInfo{}
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_INDEX, instrumentId), nil, &sii); err != nil {
+		return nil, er
