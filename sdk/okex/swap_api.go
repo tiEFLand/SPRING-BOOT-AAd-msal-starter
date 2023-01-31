@@ -426,4 +426,6 @@ func (client *Client) GetSwapOpenInterestByInstrument(instrumentId string) (*Swa
 HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/price_limit
 */
-func (client *Client) GetSwapPriceLim
+func (client *Client) GetSwapPriceLimitByInstrument(instrumentId string) (*SwapPriceLimit, error) {
+	sii := SwapPriceLimit{}
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_I
