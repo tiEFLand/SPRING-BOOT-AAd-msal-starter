@@ -414,4 +414,8 @@ GET /api/swap/v3/instruments/<instrument_id>/open_interest
 */
 func (client *Client) GetSwapOpenInterestByInstrument(instrumentId string) (*SwapOpenInterest, error) {
 	sii := SwapOpenInterest{}
-	if _, err := client.Reque
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_OPEN_INTEREST, instrumentId), nil, &sii); err != nil {
+		return nil, err
+	}
+	return &sii, nil
+}
