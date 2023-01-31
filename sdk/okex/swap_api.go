@@ -419,3 +419,11 @@ func (client *Client) GetSwapOpenInterestByInstrument(instrumentId string) (*Swa
 	}
 	return &sii, nil
 }
+
+/*
+获取合约当前开仓的最高买价和最低卖价。
+
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/price_limit
+*/
+func (client *Client) GetSwapPriceLim
