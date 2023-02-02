@@ -438,4 +438,7 @@ func (client *Client) GetSwapPriceLimitByInstrument(instrumentId string) (*SwapP
 获取合约爆仓单。
 
 HTTP请求
-GET /a
+GET /api/swap/v3/instruments/<instrument_id>/liquidation
+
+请求示例
+GET /api/swap/v3/instruments/BTC-USD-SWAP/liquidation?status=0&from=1&
