@@ -441,4 +441,6 @@ HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/liquidation
 
 请求示例
-GET /api/swap/v3/instruments/BTC-USD-SWAP/liquidation?status=0&from=1&
+GET /api/swap/v3/instruments/BTC-USD-SWAP/liquidation?status=0&from=1&limit=50
+*/
+func (client *Client) GetSwapLiquidationByInstrument(instrumentId string, status string, optionalParams map[string]string) (*SwapLiquidationList,
