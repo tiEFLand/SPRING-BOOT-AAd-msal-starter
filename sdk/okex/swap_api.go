@@ -428,4 +428,14 @@ GET /api/swap/v3/instruments/<instrument_id>/price_limit
 */
 func (client *Client) GetSwapPriceLimitByInstrument(instrumentId string) (*SwapPriceLimit, error) {
 	sii := SwapPriceLimit{}
-	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_I
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_PRICE_LIMIT, instrumentId), nil, &sii); err != nil {
+		return nil, err
+	}
+	return &sii, nil
+}
+
+/*
+获取合约爆仓单。
+
+HTTP请求
+GET /a
