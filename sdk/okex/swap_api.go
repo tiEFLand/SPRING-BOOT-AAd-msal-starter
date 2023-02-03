@@ -451,4 +451,9 @@ func (client *Client) GetSwapLiquidationByInstrument(instrumentId string, status
 		optionalParams["status"] = status
 		uri = BuildParams(baseUri, optionalParams)
 	} else {
-		oParams := map[stri
+		oParams := map[string]string{}
+		oParams["status"] = status
+		uri = BuildParams(baseUri, oParams)
+	}
+	if _, err := client.Request(GET, uri, nil, &scl); err != nil {
+		return nil, er
