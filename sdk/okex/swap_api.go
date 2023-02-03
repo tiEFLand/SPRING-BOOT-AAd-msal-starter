@@ -467,4 +467,6 @@ func (client *Client) GetSwapLiquidationByInstrument(instrumentId string, status
 HTTP请求
 GET /api/swap/v3/accounts/<instrument_id>/holds
 */
-func (client *Client) GetSwapAccount
+func (client *Client) GetSwapAccountsHoldsByInstrument(instrumentId string) (*SwapAccountHolds, error) {
+	r := SwapAccountHolds{}
+	if _, err := client.Request(GET, GetInstrumentIdUri(
