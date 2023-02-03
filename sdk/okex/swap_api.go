@@ -481,4 +481,6 @@ func (client *Client) GetSwapAccountsHoldsByInstrument(instrumentId string) (*Sw
 HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/funding_time
 */
-func (client *Client) GetSwapFundingTimeByInstrument(instrumentId string) (*SwapFundingTime
+func (client *Client) GetSwapFundingTimeByInstrument(instrumentId string) (*SwapFundingTime, error) {
+	r := SwapFundingTime{}
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_FUNDING_TIME, instrumentId), nil, &
