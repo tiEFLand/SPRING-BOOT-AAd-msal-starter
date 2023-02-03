@@ -479,4 +479,6 @@ func (client *Client) GetSwapAccountsHoldsByInstrument(instrumentId string) (*Sw
 获取合约下一次的结算时间。
 
 HTTP请求
-GET /api/
+GET /api/swap/v3/instruments/<instrument_id>/funding_time
+*/
+func (client *Client) GetSwapFundingTimeByInstrument(instrumentId string) (*SwapFundingTime
