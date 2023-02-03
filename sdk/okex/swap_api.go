@@ -456,4 +456,15 @@ func (client *Client) GetSwapLiquidationByInstrument(instrumentId string, status
 		uri = BuildParams(baseUri, oParams)
 	}
 	if _, err := client.Request(GET, uri, nil, &scl); err != nil {
-		return nil, er
+		return nil, err
+	}
+	return &scl, nil
+}
+
+/*
+获取合约挂单冻结数量。
+
+HTTP请求
+GET /api/swap/v3/accounts/<instrument_id>/holds
+*/
+func (client *Client) GetSwapAccount
