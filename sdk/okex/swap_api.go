@@ -447,4 +447,8 @@ func (client *Client) GetSwapLiquidationByInstrument(instrumentId string, status
 	scl := SwapLiquidationList{}
 	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_LIQUIDATION, instrumentId)
 	uri := baseUri
-	if
+	if optionalParams != nil {
+		optionalParams["status"] = status
+		uri = BuildParams(baseUri, optionalParams)
+	} else {
+		oParams := map[stri
