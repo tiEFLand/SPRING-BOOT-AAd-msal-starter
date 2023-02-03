@@ -469,4 +469,14 @@ GET /api/swap/v3/accounts/<instrument_id>/holds
 */
 func (client *Client) GetSwapAccountsHoldsByInstrument(instrumentId string) (*SwapAccountHolds, error) {
 	r := SwapAccountHolds{}
-	if _, err := client.Request(GET, GetInstrumentIdUri(
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_ACCOUNTS_HOLDS, instrumentId), nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取合约下一次的结算时间。
+
+HTTP请求
+GET /api/
