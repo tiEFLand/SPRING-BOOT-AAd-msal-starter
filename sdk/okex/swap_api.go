@@ -495,4 +495,6 @@ func (client *Client) GetSwapFundingTimeByInstrument(instrumentId string) (*Swap
 HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/mark_price
 */
-func (client *Cl
+func (client *Client) GetSwapMarkPriceByInstrument(instrumentId string) (*SwapMarkPrice, error) {
+	r := SwapMarkPrice{}
+	if _, err := client.Request(GET, G
