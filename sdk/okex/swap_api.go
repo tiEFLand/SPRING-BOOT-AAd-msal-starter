@@ -514,4 +514,7 @@ GET /api/swap/v3/instruments/BTC-USD-SWAP/historical_funding_rate?from=1&limit=5
 */
 func (client *Client) GetSwapHistoricalFundingRateByInstrument(instrumentId string, optionalParams map[string]string) (*SwapHistoricalFundingRateList, error) {
 	r := SwapHistoricalFundingRateList{}
-	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_HISTORIC
+	baseUri := GetInstrumentIdUri(SWAP_INSTRUMENT_HISTORICAL_FUNDING_RATE, instrumentId)
+	uri := baseUri
+	if optionalParams != nil {
+		uri = BuildParams(baseUri, optionalParams)
