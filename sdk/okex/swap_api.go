@@ -497,4 +497,12 @@ GET /api/swap/v3/instruments/<instrument_id>/mark_price
 */
 func (client *Client) GetSwapMarkPriceByInstrument(instrumentId string) (*SwapMarkPrice, error) {
 	r := SwapMarkPrice{}
-	if _, err := client.Request(GET, G
+	if _, err := client.Request(GET, GetInstrumentIdUri(SWAP_INSTRUMENT_MARK_PRICE, instrumentId), nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取合约历史资金费率。
+
