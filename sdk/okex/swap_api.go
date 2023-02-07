@@ -506,3 +506,8 @@ func (client *Client) GetSwapMarkPriceByInstrument(instrumentId string) (*SwapMa
 /*
 获取合约历史资金费率。
 
+HTTP请求
+GET /api/swap/v3/instruments/<instrument_id>/historical_funding_rate
+
+请求示例
+GET /api/swap/v3/instruments/BTC-USD-SWAP/historical_funding
