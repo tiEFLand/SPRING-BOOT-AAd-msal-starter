@@ -510,4 +510,6 @@ HTTP请求
 GET /api/swap/v3/instruments/<instrument_id>/historical_funding_rate
 
 请求示例
-GET /api/swap/v3/instruments/BTC-USD-SWAP/historical_funding
+GET /api/swap/v3/instruments/BTC-USD-SWAP/historical_funding_rate?from=1&limit=50
+*/
+func (client *Client) GetSwapHistoricalFundingRateByInstrument(instrumentId string, optionalParams map[string]string) (*S
