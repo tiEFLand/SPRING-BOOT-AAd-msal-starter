@@ -532,4 +532,8 @@ func (client *Client) GetSwapHistoricalFundingRateByInstrument(instrumentId stri
 HTTP请求
 GET /api/swap/v3/rate
 */
-f
+func (client *Client) GetSwapRate() (*SwapRate, error) {
+	sr := SwapRate{}
+	if _, err := client.Request(GET, SWAP_RATE, nil, &sr); err != nil {
+		return nil, err
+	}
