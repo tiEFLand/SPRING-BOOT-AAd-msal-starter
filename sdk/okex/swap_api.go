@@ -537,3 +537,5 @@ func (client *Client) GetSwapRate() (*SwapRate, error) {
 	if _, err := client.Request(GET, SWAP_RATE, nil, &sr); err != nil {
 		return nil, err
 	}
+	return &sr, nil
+}
