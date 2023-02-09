@@ -518,3 +518,18 @@ func (client *Client) GetSwapHistoricalFundingRateByInstrument(instrumentId stri
 	uri := baseUri
 	if optionalParams != nil {
 		uri = BuildParams(baseUri, optionalParams)
+	}
+
+	if _, err := client.Request(GET, uri, nil, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+/*
+获取法币汇率。
+
+HTTP请求
+GET /api/swap/v3/rate
+*/
+f
