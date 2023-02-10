@@ -17,4 +17,9 @@ type BasePlaceOrderInfo struct {
 
 type PlaceOrderInfo struct {
 	BasePlaceOrderInfo
-	InstrumentId str
+	InstrumentId string `json:"instrument_id"`
+}
+
+type PlaceOrdersInfo struct {
+	InstrumentId string                `json:"instrument_id"`
+	OrderData    []*BasePlaceO
