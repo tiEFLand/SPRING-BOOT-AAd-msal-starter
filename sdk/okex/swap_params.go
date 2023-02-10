@@ -11,4 +11,10 @@ type BasePlaceOrderInfo struct {
 	ClientOid  string `json:"client_oid"`
 	Price      string `json:"price"`
 	MatchPrice string `json:"match_price"`
-	
+	Type       string `json:"type"`
+	Size       string `json:"size"`
+}
+
+type PlaceOrderInfo struct {
+	BasePlaceOrderInfo
+	InstrumentId str
