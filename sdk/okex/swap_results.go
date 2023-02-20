@@ -16,4 +16,10 @@ type SwapPositionHolding struct {
 	InstrumentId     string `json:"instrument_id"`
 	Leverage         string `json:"leverage"`
 	RealizedPnl      string `json:"realized_pnl"`
-	Side             string `json:"si
+	Side             string `json:"side"`
+	Timestamp        string `json:"timestamp"`
+	Margin           string `json:"margin";default:""`
+}
+
+type SwapPosition struct {
+	
