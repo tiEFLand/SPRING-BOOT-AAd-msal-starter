@@ -13,4 +13,7 @@ type SwapPositionHolding struct {
 	AvailPosition    string `json:"avail_position"`
 	AvgCost          string `json:"avg_cost"`
 	SettlementPrice  string `json:"settlement_price"`
-	InstrumentId     string `json:"inst
+	InstrumentId     string `json:"instrument_id"`
+	Leverage         string `json:"leverage"`
+	RealizedPnl      string `json:"realized_pnl"`
+	Side             string `json:"si
