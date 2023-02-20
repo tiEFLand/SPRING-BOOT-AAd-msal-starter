@@ -7,4 +7,7 @@ package okex
  @version 1.0.0
 */
 
-type SwapPosi
+type SwapPositionHolding struct {
+	LiquidationPrice string `json:"liquidation_price"`
+	Position         string `json:"position"`
+	AvailPosition    stri
