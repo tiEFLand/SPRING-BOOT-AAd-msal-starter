@@ -65,4 +65,10 @@ type SwapOrderResult struct {
 	BizWarmTips
 }
 
-type S
+type SwapOrdersResult struct {
+	BizWarmTips
+	OrderInfo []BaseSwapOrderResult `json:"order_info"`
+}
+
+type SwapCancelOrderResult struct {
+	Err
