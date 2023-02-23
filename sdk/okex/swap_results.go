@@ -27,4 +27,9 @@ type SwapPosition struct {
 	Holding    []SwapPositionHolding `json:"holding"`
 }
 
-type SwapPositionList []SwapPosit
+type SwapPositionList []SwapPosition
+
+type SwapAccountInfo struct {
+	InstrumentId      string `json:"instrument_id"`
+	Timestamp         string `json:"timestamp"`
+	MarginFrozen      string `jso
