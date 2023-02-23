@@ -22,4 +22,9 @@ type SwapPositionHolding struct {
 }
 
 type SwapPosition struct {
-	
+	BizWarmTips
+	MarginMode string                `json:"margin_mode"`
+	Holding    []SwapPositionHolding `json:"holding"`
+}
+
+type SwapPositionList []SwapPosit
