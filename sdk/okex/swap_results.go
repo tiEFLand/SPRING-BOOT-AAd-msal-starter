@@ -38,4 +38,9 @@ type SwapAccountInfo struct {
 	RealizedPnl       string `json:"realized_pnl"`
 	UnrealizedPnl     string `json:"unrealized_pnl"`
 	FixedBalance      string `json:"fixed_balance"`
-	Equity    
+	Equity            string `json:"equity"`
+	Margin            string `json:"margin"`
+	MarginMode        string `json:"margin_mode"`
+}
+
+type SwapAccount
