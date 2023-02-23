@@ -56,4 +56,13 @@ type BaseSwapOrderResult struct {
 	OrderId      string `json:"order_id"`
 	ClientOid    string `json:"client_oid"`
 	ErrorMessage string `json:"error_message"`
-	ErrorCode    str
+	ErrorCode    string `json:"error_code"`
+	Result       string `json:"result"`
+}
+
+type SwapOrderResult struct {
+	BaseSwapOrderResult
+	BizWarmTips
+}
+
+type S
