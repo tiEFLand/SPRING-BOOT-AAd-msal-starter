@@ -52,4 +52,8 @@ type SwapAccount struct {
 	Info SwapAccountInfo `json:"info"`
 }
 
-type BaseSwapOrderResult struct 
+type BaseSwapOrderResult struct {
+	OrderId      string `json:"order_id"`
+	ClientOid    string `json:"client_oid"`
+	ErrorMessage string `json:"error_message"`
+	ErrorCode    str
