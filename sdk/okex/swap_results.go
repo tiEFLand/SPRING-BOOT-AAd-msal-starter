@@ -43,4 +43,13 @@ type SwapAccountInfo struct {
 	MarginMode        string `json:"margin_mode"`
 }
 
-type SwapAccount
+type SwapAccounts struct {
+	BizWarmTips
+	Info []SwapAccountInfo `json:"info"`
+}
+
+type SwapAccount struct {
+	Info SwapAccountInfo `json:"info"`
+}
+
+type BaseSwapOrderResult struct 
