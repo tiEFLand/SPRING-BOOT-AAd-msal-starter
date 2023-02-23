@@ -32,4 +32,7 @@ type SwapPositionList []SwapPosition
 type SwapAccountInfo struct {
 	InstrumentId      string `json:"instrument_id"`
 	Timestamp         string `json:"timestamp"`
-	MarginFrozen      string `jso
+	MarginFrozen      string `json:"margin_frozen"`
+	TotalAvailBalance string `json:"total_avail_balance"`
+	MarginRatio       string `json:"margin_ratio"`
+	RealizedPnl       string `j
