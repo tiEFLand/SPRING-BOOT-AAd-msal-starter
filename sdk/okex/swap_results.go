@@ -80,4 +80,10 @@ type SwapCancelOrderResult struct {
 type SwapBatchCancelOrderResult struct {
 	BizWarmTips
 	InstrumentId string   `json:"instrument_id"`
-	Ids          []string `js
+	Ids          []string `json:"ids"`
+	Result       string   `json:"result"`
+}
+
+type BaseOrderInfo struct {
+	InstrumentId string `json:"instrument_id"`
+	Status       string `json:"status
