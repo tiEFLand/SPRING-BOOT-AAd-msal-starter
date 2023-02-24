@@ -106,4 +106,8 @@ type SwapOrdersInfo struct {
 type BaseFillInfo struct {
 	InstrumentId string `json:"instrument_id"`
 	OrderQty     string `json:"order_qty"`
-	TradeId 
+	TradeId      string `json:"trade_id"`
+	Fee          string `json:"fee"`
+	OrderId      string `json:"order_id"`
+	Timestamp    string `json:"timestamp"`
+	Price       
