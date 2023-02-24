@@ -90,4 +90,7 @@ type BaseOrderInfo struct {
 	OrderId      string `json:"order_id"`
 	Timestamp    string `json:"timestamp"`
 	Price        string `json:"price"`
-	PriceA
+	PriceAvg     string `json:"price_avg"`
+	Size         string `json:"size"`
+	Fee          string `json:"fee"`
+	FilledQty    string `json:"fille
