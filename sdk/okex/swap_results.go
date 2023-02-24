@@ -74,4 +74,10 @@ type SwapCancelOrderResult struct {
 	ErrorMessage string `json:"error_message"`
 	ErrorCode    string `json:"error_code"`
 	OrderId      string `json:"order_id"`
-	Result       
+	Result       string `json:"result"`
+}
+
+type SwapBatchCancelOrderResult struct {
+	BizWarmTips
+	InstrumentId string   `json:"instrument_id"`
+	Ids          []string `js
