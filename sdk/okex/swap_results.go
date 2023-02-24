@@ -100,4 +100,10 @@ type BaseOrderInfo struct {
 
 type SwapOrdersInfo struct {
 	BizWarmTips
-	OrderInfo []BaseOrderInfo `jso
+	OrderInfo []BaseOrderInfo `json:"order_info"`
+}
+
+type BaseFillInfo struct {
+	InstrumentId string `json:"instrument_id"`
+	OrderQty     string `json:"order_qty"`
+	TradeId 
