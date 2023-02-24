@@ -71,4 +71,7 @@ type SwapOrdersResult struct {
 }
 
 type SwapCancelOrderResult struct {
-	Err
+	ErrorMessage string `json:"error_message"`
+	ErrorCode    string `json:"error_code"`
+	OrderId      string `json:"order_id"`
+	Result       
