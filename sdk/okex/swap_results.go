@@ -93,4 +93,11 @@ type BaseOrderInfo struct {
 	PriceAvg     string `json:"price_avg"`
 	Size         string `json:"size"`
 	Fee          string `json:"fee"`
-	FilledQty    string `json:"fille
+	FilledQty    string `json:"filled_qty"`
+	ContractVal  string `json:"contract_val"`
+	Type         string `json:"type"`
+}
+
+type SwapOrdersInfo struct {
+	BizWarmTips
+	OrderInfo []BaseOrderInfo `jso
