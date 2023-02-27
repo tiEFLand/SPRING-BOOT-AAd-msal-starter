@@ -117,4 +117,8 @@ type BaseFillInfo struct {
 
 type SwapFillsInfo []BaseFillInfo
 
-type Sw
+type SwapAccountsSetting struct {
+	BizWarmTips
+	InstrumentId  string `json:"instrument_id"`
+	LongLeverage  string `json:"long_leverage"`
+	ShortL
