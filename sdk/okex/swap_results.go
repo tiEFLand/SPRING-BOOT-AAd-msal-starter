@@ -110,4 +110,11 @@ type BaseFillInfo struct {
 	Fee          string `json:"fee"`
 	OrderId      string `json:"order_id"`
 	Timestamp    string `json:"timestamp"`
-	Price       
+	Price        string `json:"price"`
+	Side         string `json:"side"`
+	ExecType     string `json:"exec_type"`
+}
+
+type SwapFillsInfo []BaseFillInfo
+
+type Sw
