@@ -121,4 +121,9 @@ type SwapAccountsSetting struct {
 	BizWarmTips
 	InstrumentId  string `json:"instrument_id"`
 	LongLeverage  string `json:"long_leverage"`
-	ShortL
+	ShortLeverage string `json:"short_leverage"`
+	MarginMode    string `json:"margin_mode"`
+}
+
+type BaseLedgerInfo struct {
+	InstrumentId string `json:"i
