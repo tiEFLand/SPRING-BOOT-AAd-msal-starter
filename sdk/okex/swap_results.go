@@ -126,4 +126,8 @@ type SwapAccountsSetting struct {
 }
 
 type BaseLedgerInfo struct {
-	InstrumentId string `json:"i
+	InstrumentId string `json:"instrument_id"`
+	Fee          string `json:"fee"`
+	Timestamp    string `json:"timestamp"`
+	Amount       string `json:"amount"`
+	Ledger
