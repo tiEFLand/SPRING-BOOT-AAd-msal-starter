@@ -154,4 +154,10 @@ type BaesDepthInfo []interface{}
 type SwapInstrumentDepth struct {
 	BizWarmTips
 	Timestamp string          `json:"timestamp"`
-	Time      string          `json
+	Time      string          `json:"time"`
+	Bids      []BaesDepthInfo `json:"bids"`
+	Asks      []BaesDepthInfo `json:"asks"`
+}
+
+type BaseTickerInfo struct {
+	InstrumentId strin
