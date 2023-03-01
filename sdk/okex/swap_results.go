@@ -137,4 +137,7 @@ type BaseLedgerInfo struct {
 type SwapAccountsLedgerList []BaseLedgerInfo
 
 type BaseInstrumentInfo struct {
-	InstrumentId    strin
+	InstrumentId    string `json:"instrument_id"`
+	QuoteCurrency   string `json:"quote_currency"`
+	TickSize        string `json:"tick_size"`
+	ContractVal     string `json:"contract_val"
