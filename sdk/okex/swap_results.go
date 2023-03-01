@@ -150,4 +150,8 @@ type BaseInstrumentInfo struct {
 
 type SwapInstrumentList []BaseInstrumentInfo
 
-type BaesDepthInfo 
+type BaesDepthInfo []interface{}
+type SwapInstrumentDepth struct {
+	BizWarmTips
+	Timestamp string          `json:"timestamp"`
+	Time      string          `json
