@@ -140,4 +140,8 @@ type BaseInstrumentInfo struct {
 	InstrumentId    string `json:"instrument_id"`
 	QuoteCurrency   string `json:"quote_currency"`
 	TickSize        string `json:"tick_size"`
-	ContractVal     string `json:"contract_val"
+	ContractVal     string `json:"contract_val"`
+	Listing         string `json:"listing"`
+	UnderlyingIndex string `json:"underlying_index"`
+	Delivery        string `json:"delivery"`
+	Coin 
