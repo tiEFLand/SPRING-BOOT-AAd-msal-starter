@@ -144,4 +144,10 @@ type BaseInstrumentInfo struct {
 	Listing         string `json:"listing"`
 	UnderlyingIndex string `json:"underlying_index"`
 	Delivery        string `json:"delivery"`
-	Coin 
+	Coin            string `json:"coin"`
+	SizeIncrement   string `json:"size_increment"`
+}
+
+type SwapInstrumentList []BaseInstrumentInfo
+
+type BaesDepthInfo 
