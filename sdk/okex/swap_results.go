@@ -130,4 +130,11 @@ type BaseLedgerInfo struct {
 	Fee          string `json:"fee"`
 	Timestamp    string `json:"timestamp"`
 	Amount       string `json:"amount"`
-	Ledger
+	LedgerId     string `json:"ledger_id"`
+	Type         string `json:"type"`
+}
+
+type SwapAccountsLedgerList []BaseLedgerInfo
+
+type BaseInstrumentInfo struct {
+	InstrumentId    strin
