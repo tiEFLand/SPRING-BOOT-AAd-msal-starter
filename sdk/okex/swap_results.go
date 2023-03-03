@@ -160,4 +160,8 @@ type SwapInstrumentDepth struct {
 }
 
 type BaseTickerInfo struct {
-	InstrumentId strin
+	InstrumentId string `json:"instrument_id"`
+	Last         string `json:"last"`
+	Timestamp    string `json:"timestamp"`
+	High24h      string `json:"high_24h"`
+	
