@@ -164,4 +164,11 @@ type BaseTickerInfo struct {
 	Last         string `json:"last"`
 	Timestamp    string `json:"timestamp"`
 	High24h      string `json:"high_24h"`
-	
+	Volume24h    string `json:"volume_24h"`
+	Low24h       string `json:"low_24h"`
+}
+
+type SwapTickerList []BaseTickerInfo
+
+type BaseTradeInfo struct {
+	Time
