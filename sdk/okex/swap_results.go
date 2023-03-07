@@ -175,4 +175,12 @@ type BaseTradeInfo struct {
 	TradeId   string `json:"trade_id"`
 	Side      string `json:"side"`
 	Price     string `json:"price"`
-	Size      st
+	Size      string `json:"size"`
+}
+
+type SwapTradeList []BaseTradeInfo
+
+type BaseCandleInfo []interface{}
+type SwapCandleList []BaseCandleInfo
+
+type Sw
