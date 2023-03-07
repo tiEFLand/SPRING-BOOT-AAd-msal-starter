@@ -199,4 +199,12 @@ type SwapRate struct {
 type BaseInstrumentAmount struct {
 	BizWarmTips
 	InstrumentId string `json:"instrument_id"`
-	Timestamp    string `json:"tim
+	Timestamp    string `json:"timestamp"`
+	Amount       string `json:"amount"`
+}
+
+type SwapOpenInterest BaseInstrumentAmount
+
+type SwapPriceLimit struct {
+	BizWarmTips
+	InstrumentId string
