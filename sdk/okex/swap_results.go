@@ -171,4 +171,8 @@ type BaseTickerInfo struct {
 type SwapTickerList []BaseTickerInfo
 
 type BaseTradeInfo struct {
-	Time
+	Timestamp string `json:"timestamp"`
+	TradeId   string `json:"trade_id"`
+	Side      string `json:"side"`
+	Price     string `json:"price"`
+	Size      st
