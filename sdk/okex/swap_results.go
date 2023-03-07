@@ -187,4 +187,10 @@ type SwapIndexInfo struct {
 	BizWarmTips
 	InstrumentId string `json:"instrument_id"`
 	Index        string `json:"index"`
-	Timestamp    string `json:"t
+	Timestamp    string `json:"timestamp"`
+}
+
+type SwapRate struct {
+	InstrumentId string `json:"instrument_id"`
+	Timestamp    string `json:"timestamp"`
+	Rate         string `json
