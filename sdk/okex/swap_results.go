@@ -183,4 +183,8 @@ type SwapTradeList []BaseTradeInfo
 type BaseCandleInfo []interface{}
 type SwapCandleList []BaseCandleInfo
 
-type Sw
+type SwapIndexInfo struct {
+	BizWarmTips
+	InstrumentId string `json:"instrument_id"`
+	Index        string `json:"index"`
+	Timestamp    string `json:"t
