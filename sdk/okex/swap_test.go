@@ -166,3 +166,111 @@ func TestClient_PrivateAPI(t *testing.T) {
 
 	r5, err := c.PostSwapAccountsLeverage(instrumentId, "50", "3")
 	simpleAssertTrue(r5, err, t, false)
+	assert.True(t, int(r5.Code) > 30000)
+
+	r6, err := c.GetSwapAccountLedger(instrumentId, nil)
+	simpleAssertTrue(r6, err, t, false)
+
+	order := BasePlaceOrderInfo{}
+	order.Size = "1"
+	order.Type = "1"
+	order.MatchPrice = "1"
+	order.Price = "100"
+	r7, err := c.PostSwapOrder(instrumentId, &order)
+	simpleAssertTrue(r7, err, t, false)
+
+	order2 := BasePlaceOrderInfo{}
+	order2.Size = "1"
+	order2.Type = "1"
+	order2.MatchPrice = "1"
+	order2.Price = "200"
+	r8, err := c.PostSwapOrders(instrumentId, []*BasePlaceOrderInfo{&order, &order2})
+	simpleAssertTrue(r8, err, t, false)
+
+	r81, err := c.GetSwapOrderByOrderId(instrumentId, r8.OrderInfo[0].OrderId)
+	simpleAssertTrue(r81, err, t, false)
+
+	orderId := r8.OrderInfo[0].OrderId
+	r9, err := c.PostSwapCancelOrder(instrumentId, orderId)
+	simpleAssertTrue(r9, err, t, false)
+
+	ids := []string{r8.OrderInfo[0].OrderId, r8.OrderInfo[1].OrderId}
+	r10, err := c.PostSwapBatchCancelOrders(instrumentId, ids)
+	simpleAssertTrue(r10, err, t, false)
+
+	params := map[string]string{}
+	params["status"] = "1"
+	params["from"] = "1"
+	params["to"] = "4"
+	params["limit"] = "100"
+	r11, err := c.GetSwapOrderByInstrumentId(instrumentId, params)
+	simpleAssertTrue(r11, err, t, false)
+
+	r12, err := c.GetSwapFills(instrumentId, orderId, nil)
+	simpleAssertTrue(r12, err, t, false)
+}
+
+func cleanUpOrders(c *Client, instrumentId string) {
+	params := NewParams()
+	currentPage := 1
+	params["status"] = "6"
+	params["limit"] = "100"
+	params["from"] = Int2String(currentPage)
+	orders := []string{}
+
+	rNotDealed, _ := c.GetSwapOrderByInstrumentId(instrumentId, params)
+	for rNotDealed != nil && len(rNotDealed.OrderInfo) > 0 {
+		for i := 0; i < len(rNotDealed.OrderInfo); i++ {
+			if rNotDealed.OrderInfo[i].OrderId != "" && len(rNotDealed.OrderInfo[i].OrderId) > 0 {
+				orders = append(orders, rNotDealed.OrderInfo[i].OrderId)
+			}
+		}
+
+		delta := 10
+		for i := 0; i < len(orders); i = i + delta {
+			upper := i + delta
+			if upper > len(orders)-1 {
+				upper = len(orders) - 1
+			}
+			c.PostSwapBatchCancelOrders(instrumentId, orders[i:upper])
+			time.Sleep(time.Millisecond * 200)
+			println(i, i+delta)
+		}
+
+		currentPage += 1
+		params["from"] = Int2String(currentPage)
+
+		rNotDealed, _ = c.GetSwapOrderByInstrumentId(instrumentId, params)
+	}
+}
+
+func TestClient_Err(t *testing.T) {
+
+	c := NewTestClient()
+	c.Config.Endpoint = "http://192.168.80.113:930/"
+
+	r1, err := c.GetSwapRate()
+	assert.True(t, r1 == nil && err != nil)
+}
+
+func TestClient_SwapHistoricalFundingRate(t *testing.T) {
+	s := `[
+  {
+    "instrument_id": "BTC-USD-SWAP",
+    "funding_rate": "0.00250000",
+    "realized_rate": "0.00249999",
+    "interest_rate": "0.00000000",
+    "funding_time": "2018-12-17T12:40:26.000Z"
+  }
+]`
+	r := SwapHistoricalFundingRateList{}
+	JsonString2Struct(s, &r)
+	assert.True(t, r != nil)
+	assert.True(t, len(r) >= 1)
+}
+
+func TestClient_reflect(t *testing.T) {
+	i := BasePlaceOrderInfo{}
+	tp := reflect.TypeOf(i)
+	fmt.Println(tp)
+}
