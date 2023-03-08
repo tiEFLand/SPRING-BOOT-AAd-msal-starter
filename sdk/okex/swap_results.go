@@ -210,4 +210,10 @@ type SwapPriceLimit struct {
 	InstrumentId string `json:"instrument_id"`
 	Lowest       string `json:"lowest"`
 	Highest      string `json:"highest"`
-	Timestamp    string `jso
+	Timestamp    string `json:"timestamp"`
+}
+
+type BaseLiquidationInfo struct {
+	InstrumentId string `json:"instrument_id"`
+	Loss         string `json:"loss"`
+	CreatedAt    string
