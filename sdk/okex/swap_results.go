@@ -240,4 +240,8 @@ type SwapMarkPrice struct {
 }
 
 type BaseHistoricalFundingRate struct {
-	InstrumentId string `j
+	InstrumentId string `json:"instrument_id"`
+	InterestRate string `json:"interest_rate"`
+	FundingRate  string `json:"funding_rate"`
+	FundingTime  string `json:"funding_time"`
+	Reali
