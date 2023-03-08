@@ -222,4 +222,10 @@ type BaseLiquidationInfo struct {
 	Size         string `json:"size"`
 }
 
-type SwapLiquidationLi
+type SwapLiquidationList []BaseLiquidationInfo
+
+type SwapAccountHolds BaseInstrumentAmount
+
+type SwapFundingTime struct {
+	BizWarmTips
+	InstrumentId string `json:"inst
