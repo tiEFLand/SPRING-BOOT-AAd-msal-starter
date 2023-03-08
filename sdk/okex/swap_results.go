@@ -207,4 +207,7 @@ type SwapOpenInterest BaseInstrumentAmount
 
 type SwapPriceLimit struct {
 	BizWarmTips
-	InstrumentId string
+	InstrumentId string `json:"instrument_id"`
+	Lowest       string `json:"lowest"`
+	Highest      string `json:"highest"`
+	Timestamp    string `jso
