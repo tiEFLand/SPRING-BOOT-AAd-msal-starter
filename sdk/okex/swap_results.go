@@ -244,4 +244,7 @@ type BaseHistoricalFundingRate struct {
 	InterestRate string `json:"interest_rate"`
 	FundingRate  string `json:"funding_rate"`
 	FundingTime  string `json:"funding_time"`
-	Reali
+	RealizedRate string `json:"realized_rate"`
+}
+
+type SwapHistoricalFundingRateList []BaseHistoricalFundingRate
