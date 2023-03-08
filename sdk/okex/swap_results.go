@@ -216,4 +216,10 @@ type SwapPriceLimit struct {
 type BaseLiquidationInfo struct {
 	InstrumentId string `json:"instrument_id"`
 	Loss         string `json:"loss"`
-	CreatedAt    string
+	CreatedAt    string `json:"created_at"`
+	Type         string `json:"type"`
+	Price        string `json:"price"`
+	Size         string `json:"size"`
+}
+
+type SwapLiquidationLi
