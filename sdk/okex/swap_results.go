@@ -228,4 +228,10 @@ type SwapAccountHolds BaseInstrumentAmount
 
 type SwapFundingTime struct {
 	BizWarmTips
+	InstrumentId string `json:"instrument_id"`
+	FundingTime  string `json:"funding_time"`
+}
+
+type SwapMarkPrice struct {
+	BizWarmTips
 	InstrumentId string `json:"inst
