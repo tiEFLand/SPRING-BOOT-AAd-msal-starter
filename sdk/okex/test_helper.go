@@ -20,3 +20,7 @@ func GetDefaultConfig() *Config {
 }
 
 func NewTestClient() *Client {
+	// Set OKEX API's config
+	client := NewClient(*GetDefaultConfig())
+	return client
+}
