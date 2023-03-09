@@ -237,3 +237,100 @@ func (a *OKWSAgent) handleTableResponse(r interface{}) error {
 			}
 		}
 	}
+	return nil
+}
+
+func (a *OKWSAgent) work() {
+	defer func() {
+		a := recover()
+		log.Printf("Work End. Recover msg: %+v", a)
+		// debug.PrintStack()
+	}()
+
+	defer a.Stop()
+
+	ticker := time.NewTicker(29 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			a.keepalive()
+		case errR := <-a.wsErrCh:
+			a.handleErrResponse(errR)
+		case evtR := <-a.wsEvtCh:
+			a.handleEventResponse(evtR)
+		case tb := <-a.wsTbCh:
+			a.handleTableResponse(tb)
+		case <-a.signalCh:
+			break
+		case err := <-a.errCh:
+			fmt.Println(err)
+			return
+		case <-a.stopCh:
+			return
+		}
+	}
+}
+
+func (a *OKWSAgent) receive() {
+	defer func() {
+		a := recover()
+		if a != nil {
+			log.Printf("Receive End. Recover msg: %+v", a)
+			debug.PrintStack()
+		}
+	}()
+
+	for {
+		messageType, message, err := a.conn.ReadMessage()
+		if err != nil {
+			a.errCh <- err
+			break
+		}
+
+		txtMsg := message
+		switch messageType {
+		case websocket.TextMessage:
+		case websocket.BinaryMessage:
+			txtMsg, err = a.GzipDecode(message)
+		}
+
+		rsp, err := loadResponse(txtMsg)
+		if rsp != nil {
+			// log.Printf("LoadedRep: %+v, err: %+v", rsp, err)
+		} else {
+			log.Printf("TextMessg: %s", txtMsg)
+		}
+
+		if err != nil {
+			break
+		}
+
+		switch rsp.(type) {
+		case *WSErrorResponse:
+			a.wsErrCh <- rsp
+		case *WSEventResponse:
+			er := rsp.(*WSEventResponse)
+			a.wsEvtCh <- er
+		case *WSDepthTableResponse:
+
+			dtr := rsp.(*WSDepthTableResponse)
+			hotDepths := a.hotDepthsMap[dtr.Table]
+			if hotDepths == nil {
+				hotDepths = NewWSHotDepths(dtr.Table)
+				hotDepths.loadWSDepthTableResponse(dtr)
+				a.hotDepthsMap[dtr.Table] = hotDepths
+			} else {
+				hotDepths.loadWSDepthTableResponse(dtr)
+			}
+			a.wsTbCh <- dtr
+
+		case *WSTableResponse:
+			tb := rsp.(*WSTableResponse)
+			a.wsTbCh <- tb
+		default:
+			//log.Println(rsp)
+		}
+	}
+}
