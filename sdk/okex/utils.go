@@ -167,3 +167,159 @@ func IsoToTime(iso string) (time.Time, error) {
 	nilTime := time.Now()
 	if iso == "" {
 		return nilTime, errors.New("illegal parameter")
+	}
+	// "2018-03-18T06:51:05.933Z"
+	isoBytes := []byte(iso)
+	year, err := strconv.Atoi(string(isoBytes[0:4]))
+	if err != nil {
+		return nilTime, errors.New("illegal year")
+	}
+	month, err := strconv.Atoi(string(isoBytes[5:7]))
+	if err != nil {
+		return nilTime, errors.New("illegal month")
+	}
+	day, err := strconv.Atoi(string(isoBytes[8:10]))
+	if err != nil {
+		return nilTime, errors.New("illegal day")
+	}
+	hour, err := strconv.Atoi(string(isoBytes[11:13]))
+	if err != nil {
+		return nilTime, errors.New("illegal hour")
+	}
+	min, err := strconv.Atoi(string(isoBytes[14:16]))
+	if err != nil {
+		return nilTime, errors.New("illegal min")
+	}
+	sec, err := strconv.Atoi(string(isoBytes[17:19]))
+	if err != nil {
+		return nilTime, errors.New("illegal sec")
+	}
+	nsec, err := strconv.Atoi(string(isoBytes[20 : len(isoBytes)-1]))
+	if err != nil {
+		return nilTime, errors.New("illegal nsec")
+	}
+	return time.Date(year, time.Month(month), day, hour, min, sec, nsec, time.UTC), nil
+}
+
+/*
+ Get a http request body is a json string and a byte array.
+*/
+func ParseRequestParams(params interface{}) (string, *bytes.Reader, error) {
+	if params == nil {
+		return "", nil, errors.New("illegal parameter")
+	}
+	data, err := json.Marshal(params)
+	if err != nil {
+		return "", nil, errors.New("json convert string error")
+	}
+	jsonBody := string(data)
+	binBody := bytes.NewReader(data)
+	return jsonBody, binBody, nil
+}
+
+/*
+ Set http request headers:
+   Accept: application/json
+   Content-Type: application/json; charset=UTF-8  (default)
+   Cookie: locale=en_US        (English)
+   OK-ACCESS-KEY: (Your setting)
+   OK-ACCESS-SIGN: (Use your setting, auto sign and add)
+   OK-ACCESS-TIMESTAMP: (Auto add)
+   OK-ACCESS-PASSPHRASE: Your setting
+*/
+func Headers(request *http.Request, config Config, timestamp string, sign string) {
+	request.Header.Add(ACCEPT, APPLICATION_JSON)
+	request.Header.Add(CONTENT_TYPE, APPLICATION_JSON_UTF8)
+	request.Header.Add(COOKIE, LOCALE+config.I18n)
+	request.Header.Add(OK_ACCESS_KEY, config.ApiKey)
+	request.Header.Add(OK_ACCESS_SIGN, sign)
+	request.Header.Add(OK_ACCESS_TIMESTAMP, timestamp)
+	request.Header.Add(OK_ACCESS_PASSPHRASE, config.Passphrase)
+}
+
+/*
+ Get a new map.eg: {string:string}
+*/
+func NewParams() map[string]string {
+	return make(map[string]string)
+}
+
+/*
+  build http get request params, and order
+  eg:
+    params := make(map[string]string)
+	params["bb"] = "222"
+	params["aa"] = "111"
+	params["cc"] = "333"
+  return string: eg: aa=111&bb=222&cc=333
+*/
+func BuildOrderParams(params map[string]string) string {
+	var keys []string
+	for k := range params {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	urlParams := url.Values{}
+	for k := range params {
+		urlParams.Add(k, params[k])
+	}
+	return urlParams.Encode()
+}
+
+/*
+ Get api requestPath + requestParams
+	params := NewParams()
+	params["depth"] = "200"
+	params["conflated"] = "0"
+	url := BuildParams("/api/futures/v3/products/BTC-USD-0310/book", params)
+ return eg:/api/futures/v3/products/BTC-USD-0310/book?conflated=0&depth=200
+*/
+func BuildParams(requestPath string, params map[string]string) string {
+	urlParams := url.Values{}
+	for k := range params {
+		urlParams.Add(k, params[k])
+	}
+	return requestPath + "?" + urlParams.Encode()
+}
+
+/*
+ Get api v1 requestPath + requestParams
+	params := okex.NewParams()
+	params["symbol"] = "btc_usd"
+	params["contract_type"] = "this_week"
+	params["status"] = "1"
+	requestPath := "/api/v1/future_explosive.do"
+    return eg: /api/v1/future_explosive.do?api_key=88af5759-61f2-47e9-b2e9-17ce3a390488&contract_type=this_week&status=1&symbol=btc_usd&sign=966ACD0DE5F729BC9C9C03D92ABBEB68
+*/
+func BuildAPIV1Params(requestPath string, params map[string]string, config Config) string {
+	params["api_key"] = config.ApiKey
+	sortParams := BuildOrderParams(params)
+	preMd5Params := sortParams + "&secret_key=" + config.SecretKey
+	md5Sign := Md5Signer(preMd5Params)
+	requestParams := sortParams + "&sign=" + strings.ToUpper(md5Sign)
+	return requestPath + "?" + requestParams
+}
+
+func GetResponseDataJsonString(response *http.Response) string {
+	return response.Header.Get(ResultDataJsonString)
+}
+func GetResponsePageJsonString(response *http.Response) string {
+	return response.Header.Get(ResultPageJsonString)
+}
+
+/*
+  ternary operator biz extension
+*/
+func T3Ox(err error, value interface{}) (interface{}, error) {
+	if err != nil {
+		return nil, err
+	}
+	return value, nil
+}
+
+/*
+  return decimalism string 9223372036854775807 -> "9223372036854775807"
+*/
+func Int64ToString(arg int64) string {
+	return strconv.FormatInt(arg, 10)
+}
