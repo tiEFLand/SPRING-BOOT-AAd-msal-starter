@@ -323,3 +323,55 @@ func T3Ox(err error, value interface{}) (interface{}, error) {
 func Int64ToString(arg int64) string {
 	return strconv.FormatInt(arg, 10)
 }
+
+func IntToString(arg int) string {
+	return strconv.Itoa(arg)
+}
+
+func StringToInt64(arg string) int64 {
+	value, err := strconv.ParseInt(arg, 10, 64)
+	if err != nil {
+		return 0
+	} else {
+		return value
+	}
+}
+
+func StringToInt(arg string) int {
+	value, err := strconv.Atoi(arg)
+	if err != nil {
+		return 0
+	} else {
+		return value
+	}
+}
+
+/*
+  call fmt.Println(...)
+*/
+func FmtPrintln(flag string, info interface{}) {
+	fmt.Print(flag)
+	if info != nil {
+		jsonString, err := Struct2JsonString(info)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(jsonString)
+	} else {
+		fmt.Println("{}")
+	}
+}
+
+func GetInstrumentIdUri(uri, instrumentId string) string {
+	return strings.Replace(uri, "{instrument_id}", instrumentId, -1)
+}
+
+func GetCurrencyUri(uri, currency string) string {
+	return strings.Replace(uri, "{currency}", currency, -1)
+}
+
+func GetInstrumentIdOrdersUri(uri, instrumentId string, orderId string) string {
+	uri = strings.Replace(uri, "{instrument_id}", instrumentId, -1)
+	uri = strings.Replace(uri, "{order_id}", orderId, -1)
+	return uri
+}
