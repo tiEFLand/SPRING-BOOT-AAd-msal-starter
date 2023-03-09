@@ -183,3 +183,149 @@ func (di *WSDepthItem) update(newDI *WSDepthItem) error {
 
 	return nil
 }
+
+func calCrc32(askDepths *[][4]interface{}, bidDepths *[][4]interface{}) (bytes.Buffer, int32) {
+	crc32BaseBuffer := bytes.Buffer{}
+	crcAskDepth, crcBidDepth := 25, 25
+	if len(*askDepths) < 25 {
+		crcAskDepth = len(*askDepths)
+	}
+	if len(*bidDepths) < 25 {
+		crcBidDepth = len(*bidDepths)
+	}
+	if crcAskDepth == crcBidDepth {
+		for i := 0; i < crcAskDepth; i++ {
+			if crc32BaseBuffer.Len() > 0 {
+				crc32BaseBuffer.WriteString(":")
+			}
+			crc32BaseBuffer.WriteString(
+				fmt.Sprintf("%v:%v:%v:%v",
+					(*bidDepths)[i][0], (*bidDepths)[i][1],
+					(*askDepths)[i][0], (*askDepths)[i][1]))
+		}
+	} else {
+		for i := 0; i < crcBidDepth; i++ {
+			if crc32BaseBuffer.Len() > 0 {
+				crc32BaseBuffer.WriteString(":")
+			}
+			crc32BaseBuffer.WriteString(
+				fmt.Sprintf("%v:%v", (*bidDepths)[i][0], (*bidDepths)[i][1]))
+		}
+
+		for i := 0; i < crcAskDepth; i++ {
+			if crc32BaseBuffer.Len() > 0 {
+				crc32BaseBuffer.WriteString(":")
+			}
+			crc32BaseBuffer.WriteString(
+				fmt.Sprintf("%v:%v", (*askDepths)[i][0], (*askDepths)[i][1]))
+		}
+	}
+	expectCrc32 := int32(crc32.ChecksumIEEE(crc32BaseBuffer.Bytes()))
+	return crc32BaseBuffer, expectCrc32
+}
+
+type WSDepthTableResponse struct {
+	Table  string        `json:"table"`
+	Action string        `json:"action",default:""`
+	Data   []WSDepthItem `json:"data"`
+}
+
+func (r *WSDepthTableResponse) Valid() bool {
+	return (len(r.Table) > 0 || len(r.Action) > 0) && strings.Contains(r.Table, "depth") && len(r.Data) > 0
+}
+
+type WSHotDepths struct {
+	Table    string
+	DepthMap map[string]*WSDepthItem
+}
+
+func NewWSHotDepths(tb string) *WSHotDepths {
+	hd := WSHotDepths{}
+	hd.Table = tb
+	hd.DepthMap = map[string]*WSDepthItem{}
+	return &hd
+}
+
+func (d *WSHotDepths) loadWSDepthTableResponse(r *WSDepthTableResponse) error {
+	if d.Table != r.Table {
+		return fmt.Errorf("Loading WSDepthTableResponse failed becoz of "+
+			"WSTableResponse(%s) not matched with WSHotDepths(%s)", r.Table, d.Table)
+	}
+
+	if !r.Valid() {
+		return errors.New("WSDepthTableResponse's format error.")
+	}
+
+	switch r.Action {
+	case "partial":
+		d.Table = r.Table
+		for i := 0; i < len(r.Data); i++ {
+			crc32BaseBuffer, expectCrc32 := calCrc32(&r.Data[i].Asks, &r.Data[i].Bids)
+			if expectCrc32 == r.Data[i].Checksum {
+				d.DepthMap[r.Data[i].InstrumentId] = &r.Data[i]
+			} else {
+				return fmt.Errorf("Checksum's not correct. LocalString: %s, LocalCrc32: %d, RemoteCrc32: %d",
+					crc32BaseBuffer.String(), expectCrc32, r.Data[i].Checksum)
+			}
+		}
+
+	case "update":
+		for i := 0; i < len(r.Data); i++ {
+			newDI := r.Data[i]
+			oldDI := d.DepthMap[newDI.InstrumentId]
+			if oldDI != nil {
+				if err := oldDI.update(&newDI); err != nil {
+					return err
+				}
+			} else {
+				d.DepthMap[newDI.InstrumentId] = &newDI
+			}
+		}
+
+	default:
+		break
+	}
+
+	return nil
+}
+
+type WSErrorResponse struct {
+	Event     string `json:"event"`
+	Message   string `json:"message"`
+	ErrorCode int    `json:"errorCode"`
+}
+
+func (r *WSErrorResponse) Valid() bool {
+	return len(r.Event) > 0 && len(r.Message) > 0 && r.ErrorCode >= 30000
+}
+
+func loadResponse(rspMsg []byte) (interface{}, error) {
+
+	//log.Printf("%s", rspMsg)
+
+	evtR := WSEventResponse{}
+	err := JsonBytes2Struct(rspMsg, &evtR)
+	if err == nil && evtR.Valid() {
+		return &evtR, nil
+	}
+
+	dtr := WSDepthTableResponse{}
+	err = JsonBytes2Struct(rspMsg, &dtr)
+	if err == nil && dtr.Valid() {
+		return &dtr, nil
+	}
+
+	tr := WSTableResponse{}
+	err = JsonBytes2Struct(rspMsg, &tr)
+	if err == nil && tr.Valid() {
+		return &tr, nil
+	}
+
+	er := WSErrorResponse{}
+	err = JsonBytes2Struct(rspMsg, &er)
+	if err == nil && er.Valid() {
+		return &er, nil
+	}
+
+	if string(rspMsg) == "pong" {
+		return string(rspMsg), nil
