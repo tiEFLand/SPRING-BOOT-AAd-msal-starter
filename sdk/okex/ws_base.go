@@ -329,3 +329,26 @@ func loadResponse(rspMsg []byte) (interface{}, error) {
 
 	if string(rspMsg) == "pong" {
 		return string(rspMsg), nil
+	}
+
+	return nil, err
+
+}
+
+type ReceivedDataCallback func(interface{}) error
+
+func defaultPrintData(obj interface{}) error {
+	switch obj.(type) {
+	case string:
+		fmt.Println(obj)
+	default:
+		msg, err := Struct2JsonString(obj)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}
+		fmt.Println(msg)
+
+	}
+	return nil
+}
