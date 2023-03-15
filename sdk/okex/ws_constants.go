@@ -22,4 +22,6 @@ const (
 	CHNL_FUTURES_CANDLE3600S     = "futures/candle3600s"     // 1小时k线数据频道
 	CHNL_FUTURES_CANDLE7200S     = "futures/candle7200s"     // 2小时k线数据频道
 	CHNL_FUTURES_CANDLE14400S    = "futures/candle14400s"    // 4小时k线数据频道
-	CHNL_FUTURES_CANDLE
+	CHNL_FUTURES_CANDLE21600     = "futures/candle21600"     // 6小时k线数据频道
+	CHNL_FUTURES_CANDLE43200S    = "futures/candle43200s"    // 12小时k线数据频道
+	CHNL_FUTURES_CAN
