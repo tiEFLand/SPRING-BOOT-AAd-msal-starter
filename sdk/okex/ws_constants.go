@@ -15,4 +15,6 @@ const (
 
 	CHNL_FUTURES_TICKER          = "futures/ticker"          // 行情数据频道
 	CHNL_FUTURES_CANDLE60S       = "futures/candle60s"       // 1分钟k线数据频道
-	CHNL_FUTURES_CANDLE180S      = "futures/candle18
+	CHNL_FUTURES_CANDLE180S      = "futures/candle180s"      // 3分钟k线数据频道
+	CHNL_FUTURES_CANDLE300S      = "futures/candle300s"      // 5分钟k线数据频道
+	CHNL_FUTURES_CANDLE900S      = "futures/candle900s" 
