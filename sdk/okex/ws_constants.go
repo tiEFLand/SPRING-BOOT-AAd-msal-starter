@@ -33,3 +33,6 @@ const (
 	CHNL_FUTURES_DEPTH5          = "futures/depth5"          // 深度数据频道，每次返回前5档
 	CHNL_FUTURES_MARK_PRICE      = "futures/mark_price"      // 标记价格频道
 
+	CHNL_FUTURES_ACCOUNT  = "futures/account"  // 用户账户信息频道
+	CHNL_FUTURES_POSITION = "futures/position" // 用户持仓信息频道
+	CHNL_FUTURES_ORDER    = "futur
