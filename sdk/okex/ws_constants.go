@@ -29,4 +29,7 @@ const (
 	CHNL_FUTURES_TRADE           = "futures/trade"           // 交易信息频道
 	CHNL_FUTURES_ESTIMATED_PRICE = "futures/estimated_price" //获取预估交割价
 	CHNL_FUTURES_PRICE_RANGE     = "futures/price_range"     // 限价范围频道
-	CHNL_FUTURES_DEPTH           = "futures/depth"           // 深度数据频道，首
+	CHNL_FUTURES_DEPTH           = "futures/depth"           // 深度数据频道，首次200档，后续增量
+	CHNL_FUTURES_DEPTH5          = "futures/depth5"          // 深度数据频道，每次返回前5档
+	CHNL_FUTURES_MARK_PRICE      = "futures/mark_price"      // 标记价格频道
+
