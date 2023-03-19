@@ -27,4 +27,6 @@ const (
 	CHNL_FUTURES_CANDLE86400S    = "futures/candle86400s"    // 1day k线数据频道
 	CHNL_FUTURES_CANDLE604800S   = "futures/candle604800s"   // 1week k线数据频道
 	CHNL_FUTURES_TRADE           = "futures/trade"           // 交易信息频道
-	CHNL_FUTURES_ESTIMATED_PRICE = "futures/estimated_price" //获取预估交
+	CHNL_FUTURES_ESTIMATED_PRICE = "futures/estimated_price" //获取预估交割价
+	CHNL_FUTURES_PRICE_RANGE     = "futures/price_range"     // 限价范围频道
+	CHNL_FUTURES_DEPTH           = "futures/depth"           // 深度数据频道，首
