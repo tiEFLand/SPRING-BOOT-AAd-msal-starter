@@ -35,4 +35,7 @@ const (
 
 	CHNL_FUTURES_ACCOUNT  = "futures/account"  // 用户账户信息频道
 	CHNL_FUTURES_POSITION = "futures/position" // 用户持仓信息频道
-	CHNL_FUTURES_ORDER    = "futur
+	CHNL_FUTURES_ORDER    = "futures/order"    // 用户交易数据频道
+
+	CHNL_SPOT_TICKER        = "spot/ticker"        // 行情数据频道
+	CHNL_SPOT_CANDLE60S     = "spot/candle60s
