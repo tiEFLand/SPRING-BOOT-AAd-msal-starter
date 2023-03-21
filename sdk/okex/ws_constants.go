@@ -38,4 +38,7 @@ const (
 	CHNL_FUTURES_ORDER    = "futures/order"    // 用户交易数据频道
 
 	CHNL_SPOT_TICKER        = "spot/ticker"        // 行情数据频道
-	CHNL_SPOT_CANDLE60S     = "spot/candle60s
+	CHNL_SPOT_CANDLE60S     = "spot/candle60s"     // 1分钟k线数据频道
+	CHNL_SPOT_CANDLE180S    = "spot/candle180s"    // 3分钟k线数据频道
+	CHNL_SPOT_CANDLE300S    = "spot/candle300s"    // 5分钟k线数据频道
+	CHNL_SPOT_CANDLE9
