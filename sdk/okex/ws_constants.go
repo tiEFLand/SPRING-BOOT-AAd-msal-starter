@@ -41,4 +41,6 @@ const (
 	CHNL_SPOT_CANDLE60S     = "spot/candle60s"     // 1分钟k线数据频道
 	CHNL_SPOT_CANDLE180S    = "spot/candle180s"    // 3分钟k线数据频道
 	CHNL_SPOT_CANDLE300S    = "spot/candle300s"    // 5分钟k线数据频道
-	CHNL_SPOT_CANDLE9
+	CHNL_SPOT_CANDLE900S    = "spot/candle900s"    // 15分钟k线数据频道
+	CHNL_SPOT_CANDLE1800S   = "spot/candle1800s"   // 30分钟k线数据频道
+	CHNL_SPOT_CANDLE3600S   = "spot/ca
