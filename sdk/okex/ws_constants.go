@@ -69,4 +69,6 @@ const (
 	CHNL_SWAP_CANDLE14400S  = "swap/candle14400s"  // 4小时k线数据频道
 	CHNL_SWAP_CANDLE21600   = "swap/candle21600"   // 6小时k线数据频道
 	CHNL_SWAP_CANDLE43200S  = "swap/candle43200s"  // 12小时k线数据频道
-	CHNL_SWAP_CANDLE86400S  = 
+	CHNL_SWAP_CANDLE86400S  = "swap/candle86400s"  // 1day
+	CHNL_SWAP_CANDLE604800S = "swap/candle604800s" // 1week
+	CHNL_SWAP_TRADE         = "swap/tra
