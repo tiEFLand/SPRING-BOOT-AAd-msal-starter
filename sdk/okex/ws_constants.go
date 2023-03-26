@@ -59,4 +59,7 @@ const (
 	CHNL_SPOT_ORDER          = "spot/order"          // 用户交易数据频道
 
 	CHNL_SWAP_TICKER        = "swap/ticker"        // 行情数据频道
-	CHNL_SWAP_CANDLE60S     = "
+	CHNL_SWAP_CANDLE60S     = "swap/candle60s"     // 1分钟k线数据频道
+	CHNL_SWAP_CANDLE180S    = "swap/candle180s"    // 3分钟k线数据频道
+	CHNL_SWAP_CANDLE300S    = "swap/candle300s"    // 5分钟k线数据频道
+	C
