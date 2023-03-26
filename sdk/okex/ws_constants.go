@@ -51,4 +51,5 @@ const (
 	CHNL_SPOT_CANDLE86400S  = "spot/candle86400s"  // 1day k线数据频道
 	CHNL_SPOT_CANDLE604800S = "spot/candle604800s" // 1week k线数据频道
 	CHNL_SPOT_TRADE         = "spot/trade"         // 交易信息频道
-	CH
+	CHNL_SPOT_DEPTH         = "spot/depth"         // 深度数据频道，首次200档，后续增量
+	CHNL_SPOT_DEPTH5        = "spot/depth5"        // 深度数
