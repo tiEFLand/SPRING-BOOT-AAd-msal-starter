@@ -55,4 +55,8 @@ const (
 	CHNL_SPOT_DEPTH5        = "spot/depth5"        // 深度数据频道，每次返回前5档
 
 	CHNL_SPOT_ACCOUNT        = "spot/account"        // 用户币币账户信息频道
-	CHNL_SPOT_MARGIN_ACCOUNT = "spot/margin_account" // 用户杠杆账户
+	CHNL_SPOT_MARGIN_ACCOUNT = "spot/margin_account" // 用户杠杆账户信息频道
+	CHNL_SPOT_ORDER          = "spot/order"          // 用户交易数据频道
+
+	CHNL_SWAP_TICKER        = "swap/ticker"        // 行情数据频道
+	CHNL_SWAP_CANDLE60S     = "
