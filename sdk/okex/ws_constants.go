@@ -71,4 +71,6 @@ const (
 	CHNL_SWAP_CANDLE43200S  = "swap/candle43200s"  // 12小时k线数据频道
 	CHNL_SWAP_CANDLE86400S  = "swap/candle86400s"  // 1day
 	CHNL_SWAP_CANDLE604800S = "swap/candle604800s" // 1week
-	CHNL_SWAP_TRADE         = "swap/tra
+	CHNL_SWAP_TRADE         = "swap/trade"         // 交易信息频道
+	CHNL_SWAP_FUNDING_RATE  = "swap/funding_rate"  // 资金费率频道
+	CHNL_SWAP_PRICE_RANGE   = "swap/price_range"   // 限价范围频道
