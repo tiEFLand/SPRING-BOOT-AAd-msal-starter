@@ -92,4 +92,5 @@ var (
 )
 
 var (
-	DefaultDataCallBac
+	DefaultDataCallBack = defaultPrintData
+)
