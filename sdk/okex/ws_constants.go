@@ -80,4 +80,11 @@ const (
 
 	CHNL_SWAP_ACCOUNT  = "swap/account"  // 用户账户信息频道
 	CHNL_SWAP_POSITION = "swap/position" // 用户持仓信息频道
-	CHNL_SWAP_ORDER
+	CHNL_SWAP_ORDER    = "swap/order"    // 用户交易数据频道
+
+	CHNL_EVENT_SUBSCRIBE   = "subscribe"
+	CHNL_EVENT_UNSUBSCRIBE = "unsubscribe"
+)
+
+var (
+	ERR_WS_SUBSCRIOTION_PARAMS = errors.New
