@@ -76,4 +76,8 @@ const (
 	CHNL_SWAP_PRICE_RANGE   = "swap/price_range"   // 限价范围频道
 	CHNL_SWAP_DEPTH         = "swap/depth"         // 深度数据频道，首次200档，后续增量
 	CHNL_SWAP_DEPTH5        = "swap/depth5"        // 深度数据频道，每次返回前5档
-	CHNL_SWAP_MARK_PRICE    =
+	CHNL_SWAP_MARK_PRICE    = "swap/mark_price"    // 标记价格频道
+
+	CHNL_SWAP_ACCOUNT  = "swap/account"  // 用户账户信息频道
+	CHNL_SWAP_POSITION = "swap/position" // 用户持仓信息频道
+	CHNL_SWAP_ORDER
