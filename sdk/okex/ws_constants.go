@@ -87,4 +87,9 @@ const (
 )
 
 var (
-	ERR_WS_SUBSCRIOTION_PARAMS = errors.New
+	ERR_WS_SUBSCRIOTION_PARAMS = errors.New(`ws subscription parameter error`)
+	ERR_WS_CACHE_NOT_MATCH     = errors.New(`ws hot cache not matched`)
+)
+
+var (
+	DefaultDataCallBac
