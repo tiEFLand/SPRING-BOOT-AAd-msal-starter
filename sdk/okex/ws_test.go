@@ -128,3 +128,140 @@ func TestOKWSAgent_calCrc32(t *testing.T) {
 	askDepths := [][4]interface{}{
 		{"5088.59", "34000", 0, 1},
 		{"7200", "1", 0, 1},
+		{"7300", "1", 0, 1},
+	}
+
+	bidDepths1 := [][4]interface{}{
+		{"3850", "1", 0, 1},
+		{"3800", "1", 0, 1},
+		{"3500", "1", 0, 1},
+		{"3000", "1", 0, 1},
+	}
+
+	crcBuf1, caled1 := calCrc32(&askDepths, &bidDepths1)
+	assert.True(t, caled1 != 0 && crcBuf1.String() == "3850:1:3800:1:3500:1:3000:1:5088.59:34000:7200:1:7300:1")
+
+	bidDepths2 := [][4]interface{}{
+		{"3850", "1", 0, 1},
+		{"3800", "1", 0, 1},
+		{"3500", "1", 0, 1},
+	}
+
+	crcBuf2, caled2 := calCrc32(&askDepths, &bidDepths2)
+	assert.True(t, caled2 != 0 && crcBuf2.String() == "3850:1:5088.59:34000:3800:1:7200:1:3500:1:7300:1")
+}
+
+func TestArray(t *testing.T) {
+
+	t1 := [4]int{1, 2, 3, 4}
+	t2 := [][4]int{
+		{1, 2, 3, 4},
+	}
+	t3 := [4][]int{
+		{1, 2, 3, 4},
+	}
+
+	r1, _ := Struct2JsonString(t1)
+	r2, _ := Struct2JsonString(t2)
+	r3, _ := Struct2JsonString(t3)
+
+	println(len(t1), r1)
+	println(len(t2), r2)
+	println(len(t3), r3)
+
+	fmt.Printf("%+v", t1[0:len(t1)-1])
+}
+
+func TestCrc32(t *testing.T) {
+	str1 := "3366.1:7:3366.8:9:3366:6:3368:8"
+	r := crc32.ChecksumIEEE([]byte(str1))
+	println(r)
+	assert.True(t, int32(r) == -1881014294)
+
+	str2 := "3366.1:7:3366.8:9:3368:8:3372:8"
+	r = crc32.ChecksumIEEE([]byte(str2))
+	println(r)
+	assert.True(t, int32(r) == 831078360)
+}
+
+func TestFmtSprintf(t *testing.T) {
+	a := [][]interface{}{
+		{"199", "10"},
+		{199.0, 10.0},
+	}
+
+	for _, v := range a {
+		s1 := fmt.Sprintf("%v:%v", v[0], v[1])
+		s2 := fmt.Sprintf("%s:%s", v[0], v[1])
+		println(s1)
+		println(s2)
+		assert.True(t, s1 != "" && s2 != "")
+	}
+
+}
+
+func TestOKWSAgent_Futures_AllInOne(t *testing.T) {
+	agent := OKWSAgent{}
+	config := GetDefaultConfig()
+	publicChannels := []string{
+		CHNL_FUTURES_CANDLE60S,
+		CHNL_FUTURES_CANDLE180S,
+		CHNL_FUTURES_CANDLE300S,
+		CHNL_FUTURES_CANDLE900S,
+		CHNL_FUTURES_CANDLE1800S,
+		CHNL_FUTURES_CANDLE3600S,
+		CHNL_FUTURES_CANDLE7200S,
+		CHNL_FUTURES_CANDLE14400S,
+		CHNL_FUTURES_DEPTH,
+		CHNL_FUTURES_DEPTH5,
+		CHNL_FUTURES_ESTIMATED_PRICE,
+		CHNL_FUTURES_MARK_PRICE,
+		CHNL_FUTURES_PRICE_RANGE,
+		CHNL_FUTURES_TICKER,
+		CHNL_FUTURES_TRADE,
+	}
+
+	privateChannels := []string{
+		CHNL_FUTURES_ACCOUNT,
+		CHNL_FUTURES_ORDER,
+		CHNL_FUTURES_POSITION,
+	}
+	filter := "BTC-USD-170310"
+
+	// Step1: Start agent.
+	agent.Start(config)
+
+	// Step2: Login
+	agent.Login(config.ApiKey, config.Passphrase)
+	time.Sleep(1 * time.Second)
+
+	// Step3: Subscribe privateChannels
+	for _, c := range privateChannels {
+		agent.Subscribe(c, filter, DefaultDataCallBack)
+	}
+
+	// Step4: Subscribe publicChannels
+	for _, c := range publicChannels {
+		agent.Subscribe(c, filter, DefaultDataCallBack)
+	}
+	time.Sleep(time.Second * 2)
+
+	// Step5: unsubscribe privateChannels
+	for _, c := range privateChannels {
+		agent.UnSubscribe(c, filter)
+	}
+
+	agent.Stop()
+}
+
+func TestOKWSAgent_Spots_AllInOne(t *testing.T) {
+	agent := OKWSAgent{}
+	config := GetDefaultConfig()
+	publicChannels := []string{
+		CHNL_SPOT_CANDLE60S,
+		CHNL_SPOT_CANDLE180S,
+		CHNL_SPOT_CANDLE300S,
+		CHNL_SPOT_CANDLE900S,
+		CHNL_SPOT_CANDLE1800S,
+		CHNL_SPOT_CANDLE3600S,
+		CHNL_SPOT_CANDLE7200S,
