@@ -265,3 +265,42 @@ func TestOKWSAgent_Spots_AllInOne(t *testing.T) {
 		CHNL_SPOT_CANDLE1800S,
 		CHNL_SPOT_CANDLE3600S,
 		CHNL_SPOT_CANDLE7200S,
+		CHNL_SPOT_CANDLE14400S,
+		CHNL_SPOT_DEPTH,
+		CHNL_SPOT_DEPTH5,
+		CHNL_SPOT_TICKER,
+		CHNL_SPOT_TRADE,
+	}
+
+	privateChannels := []string{
+		CHNL_SPOT_ACCOUNT,
+		CHNL_SPOT_MARGIN_ACCOUNT,
+		CHNL_SPOT_ORDER,
+	}
+	filter := "ETH-USDT"
+
+	// Step1: Start agent.
+	agent.Start(config)
+
+	// Step2: Login
+	agent.Login(config.ApiKey, config.Passphrase)
+	time.Sleep(1 * time.Second)
+
+	// Step3: Subscribe privateChannels
+	for _, c := range privateChannels {
+		agent.Subscribe(c, filter, DefaultDataCallBack)
+	}
+
+	// Step4: Subscribe publicChannels
+	for _, c := range publicChannels {
+		agent.Subscribe(c, filter, DefaultDataCallBack)
+	}
+	time.Sleep(time.Second * 2)
+
+	// Step5: unsubscribe privateChannels
+	for _, c := range privateChannels {
+		agent.UnSubscribe(c, filter)
+	}
+
+	agent.Stop()
+}
