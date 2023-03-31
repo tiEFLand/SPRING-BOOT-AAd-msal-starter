@@ -22,4 +22,8 @@ func GetLogger() *Logger {
 	} else if strings.EqualFold(level, "warn") {
 		logger.SetLevel(LevelWarn)
 	} else if strings.EqualFold(level, "error") {
-		log
+		logger.SetLevel(LevelError)
+	} else if strings.EqualFold(level, "fatal") {
+		logger.SetLevel(LevelFatal)
+	}
+	debugHandle.SetLevel(LevelDebug)
