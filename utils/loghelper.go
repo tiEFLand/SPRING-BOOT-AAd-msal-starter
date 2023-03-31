@@ -15,4 +15,7 @@ func GetLogger() *Logger {
 	if err != nil {
 		log.Fatalf("打开日志文件失败：%+v", err)
 	}
-	if string
+	if strings.EqualFold(level, "debug") {
+		logger.SetLevel(LevelDebug)
+	} else if strings.EqualFold(level, "info") {
+		logger.SetLevel(Leve
