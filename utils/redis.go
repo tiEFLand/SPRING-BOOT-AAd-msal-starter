@@ -4,4 +4,12 @@ import (
 	"errors"
 	"time"
 
-	"gi
+	"github.com/gomodule/redigo/redis"
+)
+
+type RedisUtils struct {
+	conn redis.Conn
+}
+
+func (r *RedisUtils) Connect() {
+	url, _ := G
