@@ -27,3 +27,6 @@ func GetLogger() *Logger {
 		logger.SetLevel(LevelFatal)
 	}
 	debugHandle.SetLevel(LevelDebug)
+	logger.AddHandler(debugHandle)
+	return logger
+}
