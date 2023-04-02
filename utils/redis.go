@@ -16,4 +16,12 @@ func (r *RedisUtils) Connect() {
 	c, err := redis.DialURL(url)
 	for err != nil {
 		logger.Error(err)
-		time.Sleep(t
+		time.Sleep(time.Second * 2)
+		if c == nil || c.Err() != nil {
+			c, err = redis.DialURL(url)
+		}
+	}
+	r.conn = c
+}
+
+func (r *RedisUtils) Close()
