@@ -24,4 +24,12 @@ func (r *RedisUtils) Connect() {
 	r.conn = c
 }
 
-func (r *RedisUtils) Close()
+func (r *RedisUtils) Close() {
+	if r.conn == nil {
+		return
+	}
+	r.conn.Close()
+}
+
+//127.0.0.1:6379[1]> get "depth:OKEX:spot:XRP"
+func (r *RedisUtils) SetDepth(key string, expireT
