@@ -32,4 +32,10 @@ func (r *RedisUtils) Close() {
 }
 
 //127.0.0.1:6379[1]> get "depth:OKEX:spot:XRP"
-func (r *RedisUtils) SetDepth(key string, expireT
+func (r *RedisUtils) SetDepth(key string, expireTime int, data interface{}) {
+	if r.conn == nil {
+		return
+	}
+	_, err := r.conn.Do("psetex", key, expireTime, data)
+	if err != nil {
+		logger.Error(er
