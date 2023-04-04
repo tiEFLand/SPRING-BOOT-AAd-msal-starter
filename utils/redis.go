@@ -45,4 +45,8 @@ func (r *RedisUtils) SetDepth(key string, expireTime int, data interface{}) {
 //127.0.0.1:6379[1]> get "depth:OKEX:spot:XRP"
 func (r *RedisUtils) GetDepth(key string) (string, error) {
 	if r.conn == nil {
-		return "", errors.New("r
+		return "", errors.New("redis disconnected")
+	}
+	json, getErr := redis.String(r.conn.Do("get", key))
+	return json, getErr
+}
